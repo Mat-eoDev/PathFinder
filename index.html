@@ -1,0 +1,1999 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathfinder - Dashboard de Sécurité Réseau</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #001122 50%, #000000 100%);
+            min-height: 100vh;
+            color: #ffffff;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Sidebar Minimaliste */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            border-right: 1px solid rgba(0, 255, 255, 0.2);
+            z-index: 1000;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
+        }
+
+        .sidebar-header {
+            padding: 16px;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .sidebar-header h2 {
+            color: #00ffff;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .sidebar.collapsed .sidebar-header h2 {
+            display: none;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .menu-item:hover {
+            background: rgba(0, 255, 255, 0.1);
+            color: #00ffff;
+            border-left-color: #00ffff;
+        }
+
+        .menu-item.active {
+            background: rgba(0, 255, 255, 0.2);
+            color: #00ffff;
+            border-left-color: #00ffff;
+        }
+
+        .menu-item i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar.collapsed .menu-item span {
+            display: none;
+        }
+
+        .sidebar.collapsed .menu-item i {
+            margin-right: 0;
+        }
+
+        /* Main Content Minimaliste */
+        .main-content {
+            margin-left: 240px;
+            min-height: 100vh;
+            transition: all 0.2s ease;
+        }
+
+        .main-content.expanded {
+            margin-left: 60px;
+        }
+
+        .top-bar {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            color: #00ffff;
+            font-size: 1.2em;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(0, 255, 255, 0.1);
+        }
+
+        .page-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #00ffff;
+        }
+
+        .content-area {
+            padding: 20px;
+        }
+
+        /* Cards Minimalistes */
+        .card {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(0, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #00ffff;
+        }
+
+        .card-icon {
+            color: rgba(0, 255, 255, 0.5);
+            font-size: 1.2em;
+        }
+
+        /* Form Elements Minimalistes */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 0.9em;
+            transition: all 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #00ffff;
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        /* Buttons Minimalistes */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: #00ffff;
+            color: #000000;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: #0080ff;
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .btn.btn-danger {
+            background: #ff0080;
+            color: #ffffff;
+        }
+
+        .btn.btn-danger:hover {
+            background: #ff4080;
+        }
+
+        .btn.btn-secondary {
+            background: rgba(0, 255, 255, 0.2);
+            color: #00ffff;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .btn.btn-secondary:hover {
+            background: rgba(0, 255, 255, 0.3);
+            color: #00ffff;
+        }
+
+        /* Progress Bar Minimaliste */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 12px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ffff, #0080ff);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* Status Panel */
+        #statusPanel {
+            display: none;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-dot.alive {
+            background: #00ffff;
+        }
+
+        .status-dot.dead {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Results Grid */
+        .results-grid {
+            display: block;
+        }
+
+        /* Host Cards en Ligne */
+        .host-card {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            transition: all 0.2s ease;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .host-card:hover {
+            border-color: rgba(0, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.6);
+            transform: translateX(4px);
+        }
+
+        .host-card.high-risk::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #ff0080;
+        }
+
+        .host-card.medium-risk::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #00ffff;
+        }
+
+        .host-card.low-risk::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #0080ff;
+        }
+
+        .host-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+        }
+
+        .host-ip {
+            font-size: 1em;
+            font-weight: 600;
+            color: #00ffff;
+            min-width: 120px;
+        }
+
+        .host-hostname {
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.7);
+            min-width: 150px;
+            font-style: italic;
+        }
+
+        .host-hostname.empty {
+            color: rgba(255, 255, 255, 0.3);
+            font-style: normal;
+        }
+
+        .host-status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.75em;
+            font-weight: 500;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .status-alive {
+            background: rgba(0, 255, 255, 0.2);
+            color: #00ffff;
+        }
+
+        .status-dead {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .host-details {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8em;
+        }
+
+        .host-ports {
+            min-width: 100px;
+        }
+
+        .host-mac {
+            min-width: 120px;
+            font-family: monospace;
+        }
+
+        .host-score {
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .click-hint {
+            color: rgba(0, 255, 255, 0.5);
+            font-size: 0.7em;
+            margin-left: 8px;
+        }
+
+        /* En-tête du tableau de résultats */
+        .results-header {
+            background: rgba(0, 255, 255, 0.1) !important;
+            cursor: default !important;
+            font-weight: 600 !important;
+            border-bottom: 2px solid rgba(0, 255, 255, 0.3) !important;
+        }
+
+        .results-header:hover {
+            transform: none !important;
+            background: rgba(0, 255, 255, 0.1) !important;
+        }
+
+        .ports-list {
+            margin: 10px 0;
+        }
+
+        .port-tag {
+            display: inline-block;
+            background: rgba(0, 255, 255, 0.2);
+            color: #00ffff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin: 2px;
+        }
+
+        .risk-score {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8em;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .score-high {
+            background: rgba(255, 0, 128, 0.2);
+            color: #ff0080;
+        }
+
+        .score-medium {
+            background: rgba(0, 255, 255, 0.2);
+            color: #00ffff;
+        }
+
+        .score-low {
+            background: rgba(0, 128, 255, 0.2);
+            color: #0080ff;
+        }
+
+        /* Alerts Minimalistes */
+        .alert {
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin: 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+        }
+
+        .alert-error {
+            background: rgba(255, 0, 128, 0.1);
+            color: #ff0080;
+            border-left: 3px solid #ff0080;
+        }
+
+        .alert-success {
+            background: rgba(0, 255, 255, 0.1);
+            color: #00ffff;
+            border-left: 3px solid #00ffff;
+        }
+
+        .alert-info {
+            background: rgba(0, 128, 255, 0.1);
+            color: #0080ff;
+            border-left: 3px solid #0080ff;
+        }
+
+        /* History Filters Minimalistes */
+        .history-filters {
+            margin-bottom: 20px;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        /* History Stats Minimalistes */
+        .history-stats {
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(0, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .stat-icon {
+            font-size: 1.5em;
+            margin-bottom: 8px;
+            color: #00ffff;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Table Container Minimaliste */
+        .table-container {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .history-table th,
+        .history-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .history-table th {
+            background: rgba(0, 255, 255, 0.1);
+            color: #00ffff;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .history-table th:hover {
+            background: rgba(0, 255, 255, 0.2);
+        }
+
+        .history-table tr:hover {
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        /* Modal Styles Minimalistes */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 8px;
+            padding: 0;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .modal-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .modal-header h3 {
+            color: #00ffff;
+            margin: 0;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.2em;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 0, 128, 0.2);
+            color: #ff0080;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .scan-info {
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9em;
+        }
+
+        .info-item strong {
+            color: #00ffff;
+        }
+
+        .scan-results h4 {
+            color: #00ffff;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 12px;
+        }
+
+        .result-card {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 6px;
+            padding: 12px;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .result-card:hover {
+            border-color: rgba(0, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-footer {
+            padding: 16px 20px;
+            border-top: 1px solid rgba(0, 255, 255, 0.1);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive Minimaliste */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .content-area {
+                padding: 16px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                margin: 16px;
+                max-width: calc(100vw - 32px);
+            }
+        }
+
+        /* Page Management */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Badge */
+        .badge {
+            background: #ff0080;
+            color: #ffffff;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.7em;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>🔍 Pathfinder</h2>
+        </div>
+        <nav>
+            <a href="#" class="menu-item active" data-page="dashboard">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="menu-item" data-page="scan">
+                <i class="fas fa-search"></i>
+                <span>Scanner Réseau</span>
+            </a>
+            <a href="#" class="menu-item" data-page="statistics">
+                <i class="fas fa-chart-bar"></i>
+                <span>Statistiques</span>
+            </a>
+            <a href="#" class="menu-item" data-page="history">
+                <i class="fas fa-history"></i>
+                <span>Historique</span>
+                <span class="badge" id="historyBadge">0</span>
+            </a>
+            <a href="#" class="menu-item" data-page="settings">
+                <i class="fas fa-cog"></i>
+                <span>Paramètres</span>
+            </a>
+        </nav>
+    </div>
+
+    <main class="main-content" id="mainContent">
+        <div class="top-bar">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1 class="page-title" id="pageTitle">Dashboard</h1>
+        </div>
+
+        <div class="content-area">
+            <!-- Dashboard Page -->
+            <div class="page active" id="dashboardPage">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Statistiques Générales</h3>
+                        <i class="card-icon fas fa-chart-pie"></i>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">🖥️</div>
+                            <div class="stat-value" id="totalHosts">0</div>
+                            <div class="stat-label">Total Hôtes</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">✅</div>
+                            <div class="stat-value" id="aliveHosts">0</div>
+                            <div class="stat-label">Hôtes Actifs</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⚠️</div>
+                            <div class="stat-value" id="highRiskHosts">0</div>
+                            <div class="stat-label">Risques Élevés</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🔌</div>
+                            <div class="stat-value" id="openPorts">0</div>
+                            <div class="stat-label">Ports Ouverts</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Derniers Scans</h3>
+                        <i class="card-icon fas fa-clock"></i>
+                    </div>
+                    <div id="recentScans">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i>
+                            Aucun scan récent disponible.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scan Page -->
+            <div class="page" id="scanPage">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Configuration du Scan</h3>
+                        <i class="card-icon fas fa-cog"></i>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="target">Réseau cible :</label>
+                            <select id="target" onchange="updateCustomTarget()">
+                                <option value="192.168.1.0/24">192.168.1.0/24 (Réseau domestique)</option>
+                                <option value="192.168.0.0/24">192.168.0.0/24 (Réseau domestique)</option>
+                                <option value="10.0.0.0/24">10.0.0.0/24 (Réseau d'entreprise)</option>
+                                <option value="172.16.0.0/24">172.16.0.0/24 (Réseau privé)</option>
+                                <option value="custom">Personnalisé...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="customTarget" style="display: none;">Adresse IP personnalisée :</label>
+                            <input type="text" id="customTarget" placeholder="192.168.1.0/24" style="display: none;">
+                        </div>
+                        <div class="form-group">
+                            <label for="workers">Nombre de workers :</label>
+                            <select id="workers">
+                                <option value="50">50 (Rapide)</option>
+                                <option value="100">100 (Équilibré)</option>
+                                <option value="200">200 (Intensif)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ports">Ports à scanner :</label>
+                            <select id="ports">
+                                <option value="common">Communs (21,22,23,25,53,80,110,139,143,443,445,3306,3389,5900,8080)</option>
+                                <option value="web">Web (80,443,8080)</option>
+                                <option value="ssh">SSH (22)</option>
+                                <option value="all">Tous les ports</option>
+                                <option value="custom">Personnalisé</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="customPorts" style="display: none;">Ports personnalisés (séparés par des virgules)</label>
+                        <input type="text" id="customPorts" placeholder="22,80,443,8080" style="display: none;">
+                    </div>
+                    <div style="display: flex; gap: 15px;">
+                        <button class="btn" id="startScan">
+                            <i class="fas fa-play"></i>
+                            Démarrer le Scan
+                        </button>
+                        <button class="btn btn-danger" id="stopScan" style="display: none;">
+                            <i class="fas fa-stop"></i>
+                            Arrêter
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card" id="statusPanel" style="display: none;">
+                    <div class="card-header">
+                        <h3 class="card-title">Statut du Scan</h3>
+                        <i class="card-icon fas fa-info-circle"></i>
+                    </div>
+                    <div id="scanStatus">Préparation...</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div id="scanDetails"></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Résultats du Scan</h3>
+                        <i class="card-icon fas fa-list"></i>
+                    </div>
+                    <div id="resultsContainer">
+                        <div class="results-grid" id="resultsGrid"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Page -->
+            <div class="page" id="statisticsPage">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Statistiques Détaillées</h3>
+                        <i class="card-icon fas fa-chart-pie"></i>
+                    </div>
+                    <div id="detailedStats">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i>
+                            Aucune statistique disponible.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Page -->
+            <div class="page" id="historyPage">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Historique des Scans</h3>
+                        <i class="card-icon fas fa-history"></i>
+                    </div>
+                    <div id="historyContent">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i>
+                            Aucun historique disponible.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Page -->
+            <div class="page" id="settingsPage">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Paramètres</h3>
+                        <i class="card-icon fas fa-cog"></i>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="autoRefresh" checked>
+                            Actualisation automatique
+                        </label>
+                    </div>
+                    <button class="btn">
+                        <i class="fas fa-save"></i>
+                        Sauvegarder
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Configuration des ports
+        const portConfigs = {
+            'common': [21,22,23,25,53,80,110,139,143,443,445,3306,3389,5900,8080],
+            'web': [80,443,8080],
+            'ssh': [22],
+            'all': [21,22,23,25,53,80,110,139,143,443,445,993,995,1433,3306,3389,5432,5900,8080,8443]
+        };
+
+        // Variables globales
+        let scanInterval;
+        let isScanning = false;
+        let currentPage = 'dashboard';
+
+        // Éléments DOM
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        const menuToggle = document.getElementById('menuToggle');
+        const menuItems = document.querySelectorAll('.menu-item');
+        const pages = document.querySelectorAll('.page');
+        const pageTitle = document.getElementById('pageTitle');
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDashboard();
+            loadNetworkInfo();
+            loadRecentScans();
+        });
+
+        // Fonctions de navigation
+        function initializeDashboard() {
+            // Menu toggle
+            menuToggle.addEventListener('click', toggleSidebar);
+            
+            // Menu items
+            menuItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const page = this.dataset.page;
+                    navigateToPage(page);
+                });
+            });
+
+            // Scan functionality
+            setupScanFunctionality();
+        }
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+        }
+
+        function navigateToPage(page) {
+            // Update active menu item
+            menuItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.page === page) {
+                    item.classList.add('active');
+                }
+            });
+
+            // Update page content
+            pages.forEach(p => {
+                p.classList.remove('active');
+            });
+            document.getElementById(page + 'Page').classList.add('active');
+
+            // Update page title
+            const titles = {
+                'dashboard': 'Dashboard',
+                'scan': 'Scanner Réseau',
+                'statistics': 'Statistiques',
+                'history': 'Historique',
+                'settings': 'Paramètres'
+            };
+            pageTitle.textContent = titles[page];
+
+            currentPage = page;
+
+            // Load page-specific data
+            switch(page) {
+                case 'statistics':
+                    loadDetailedStatistics();
+                    break;
+                case 'history':
+                    loadHistory();
+                    break;
+            }
+        }
+
+        // Scan functionality
+        function setupScanFunctionality() {
+            const startBtn = document.getElementById('startScan');
+            const stopBtn = document.getElementById('stopScan');
+            const portsSelect = document.getElementById('ports');
+
+            startBtn.addEventListener('click', startScan);
+            stopBtn.addEventListener('click', stopScan);
+
+            portsSelect.addEventListener('change', function() {
+                const customPortsDiv = document.getElementById('customPorts');
+                const customPortsLabel = customPortsDiv.previousElementSibling;
+                
+                if (this.value === 'custom') {
+                    customPortsDiv.style.display = 'block';
+                    customPortsLabel.style.display = 'block';
+                } else {
+                    customPortsDiv.style.display = 'none';
+                    customPortsLabel.style.display = 'none';
+                }
+            });
+        }
+
+        function updateCustomTarget() {
+            const targetSelect = document.getElementById('target');
+            const customInput = document.getElementById('customTarget');
+            
+            if (targetSelect.value === 'custom') {
+                customInput.style.display = 'block';
+                customInput.focus();
+            } else {
+                customInput.style.display = 'none';
+            }
+        }
+
+        async function startScan() {
+            const targetSelect = document.getElementById('target');
+            const customTarget = document.getElementById('customTarget');
+            const target = targetSelect.value === 'custom' ? customTarget.value : targetSelect.value;
+            const workers = parseInt(document.getElementById('workers').value);
+            const portsType = document.getElementById('ports').value;
+            
+            let ports;
+            if (portsType === 'custom') {
+                const customPorts = document.getElementById('customPorts').value;
+                ports = customPorts.split(',').map(p => parseInt(p.trim())).filter(p => !isNaN(p));
+            } else {
+                ports = portConfigs[portsType];
+            }
+
+            if (!target) {
+                showAlert('Veuillez spécifier une plage IP', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/scan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        target: target,
+                        workers: workers,
+                        ports: ports
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    isScanning = true;
+                    document.getElementById('startScan').style.display = 'none';
+                    document.getElementById('stopScan').style.display = 'inline-flex';
+                    document.getElementById('statusPanel').style.display = 'block';
+                    document.getElementById('resultsGrid').innerHTML = '';
+                    
+                    startStatusPolling();
+                    showAlert('Scan démarré avec succès', 'success');
+                } else {
+                    showAlert(data.error || 'Erreur lors du démarrage du scan', 'error');
+                }
+            } catch (error) {
+                showAlert('Erreur de connexion: ' + error.message, 'error');
+            }
+        }
+
+        function stopScan() {
+            isScanning = false;
+            if (scanInterval) {
+                clearInterval(scanInterval);
+            }
+            document.getElementById('startScan').style.display = 'inline-flex';
+            document.getElementById('stopScan').style.display = 'none';
+            document.getElementById('statusPanel').style.display = 'none';
+            showAlert('Scan arrêté', 'info');
+        }
+
+        function startStatusPolling() {
+            scanInterval = setInterval(async () => {
+                try {
+                    const response = await fetch('/api/scan/status');
+                    const status = await response.json();
+                    
+                    updateScanStatus(status);
+                    
+                    if (!status.running) {
+                        isScanning = false;
+                        clearInterval(scanInterval);
+                        document.getElementById('startScan').style.display = 'inline-flex';
+                        document.getElementById('stopScan').style.display = 'none';
+                        await loadResults();
+                        updateHistoryBadge();
+                    }
+                } catch (error) {
+                    console.error('Erreur lors du polling:', error);
+                }
+            }, 1000);
+        }
+
+        function updateScanStatus(status) {
+            const statusDiv = document.getElementById('scanStatus');
+            const progressFill = document.getElementById('progressFill');
+            const scanDetails = document.getElementById('scanDetails');
+            
+            if (status.running) {
+                statusDiv.textContent = `Scan en cours... ${status.current}/${status.total}`;
+                progressFill.style.width = status.progress + '%';
+                scanDetails.innerHTML = `
+                    <p><strong>Cible:</strong> ${status.target}</p>
+                    <p><strong>Workers:</strong> ${status.workers}</p>
+                    <p><strong>Démarré:</strong> ${new Date(status.start_time).toLocaleTimeString()}</p>
+                `;
+            } else {
+                statusDiv.textContent = 'Scan terminé';
+                progressFill.style.width = '100%';
+                if (status.end_time) {
+                    scanDetails.innerHTML += `<p><strong>Terminé:</strong> ${new Date(status.end_time).toLocaleTimeString()}</p>`;
+                }
+            }
+        }
+
+        async function loadResults() {
+            try {
+                const response = await fetch('/api/scan/results');
+                const data = await response.json();
+                
+                updateSummaryStats(data.summary);
+                displayResults(data.results);
+                
+            } catch (error) {
+                showAlert('Erreur lors du chargement des résultats: ' + error.message, 'error');
+            }
+        }
+
+        function updateSummaryStats(summary) {
+            document.getElementById('totalHosts').textContent = summary.total_hosts;
+            document.getElementById('aliveHosts').textContent = summary.alive_hosts;
+            document.getElementById('highRiskHosts').textContent = summary.high_risk_hosts;
+            
+            const totalOpenPorts = summary.total_hosts > 0 ? 
+                Math.round(summary.alive_hosts * 3.5) : 0;
+            document.getElementById('openPorts').textContent = totalOpenPorts;
+        }
+
+        function displayResults(results) {
+            // Stocker les résultats dans une variable globale pour les détails
+            window.currentScanResults = results;
+            
+            const resultsGrid = document.getElementById('resultsGrid');
+            resultsGrid.innerHTML = '';
+            
+            // Ajouter un en-tête de tableau
+            const header = document.createElement('div');
+            header.className = 'host-card results-header';
+            header.innerHTML = `
+                <div class="host-info">
+                    <div class="host-ip">Adresse IP</div>
+                    <div class="host-hostname">Nom d'hôte</div>
+                    <div class="host-status" style="background: transparent; color: #00ffff;">Statut</div>
+                </div>
+                <div class="host-details">
+                    <div class="host-ports">Ports</div>
+                    <div class="host-mac">MAC</div>
+                    <div class="host-score">Score</div>
+                    <div class="click-hint">Action</div>
+                </div>
+            `;
+            resultsGrid.appendChild(header);
+            
+            // Changer l'affichage en liste verticale
+            resultsGrid.style.display = 'block';
+            resultsGrid.style.gridTemplateColumns = 'none';
+            
+            results.forEach(host => {
+                const card = createHostCard(host);
+                resultsGrid.appendChild(card);
+            });
+        }
+
+        function createHostCard(host) {
+            const card = document.createElement('div');
+            card.className = 'host-card';
+            
+            const score = host.priority_score || 0;
+            if (score > 5) {
+                card.classList.add('high-risk');
+            } else if (score > 2) {
+                card.classList.add('medium-risk');
+            } else {
+                card.classList.add('low-risk');
+            }
+            
+            // Format des ports (limité à 3 pour l'affichage compact)
+            const portsText = host.open_ports && host.open_ports.length > 0 
+                ? host.open_ports.slice(0, 3).join(', ') + (host.open_ports.length > 3 ? '...' : '')
+                : 'Aucun';
+            
+            // Format MAC
+            const macText = host.mac || 'N/A';
+            
+            // Ajouter l'événement de clic
+            card.onclick = () => showHostDetails(host.ip);
+            
+            const hostnameText = host.hostname || 'Non résolu';
+            const hostnameClass = host.hostname ? '' : 'empty';
+            
+            // Améliorer l'affichage des noms d'hôte détectés
+            let displayHostname = hostnameText;
+            if (hostnameText && hostnameText !== 'Non résolu') {
+                // Si c'est un nom d'hôte réel, le garder tel quel
+                if (hostnameText.includes('.') || hostnameText.includes('-') || hostnameText.includes('_')) {
+                    displayHostname = hostnameText;
+                } else {
+                    // Si c'est un type d'appareil détecté, l'afficher avec une icône
+                    displayHostname = `🔍 ${hostnameText}`;
+                }
+            }
+            
+            card.innerHTML = `
+                <div class="host-info">
+                    <div class="host-ip">${host.ip}</div>
+                    <div class="host-hostname ${hostnameClass}">${displayHostname}</div>
+                    <div class="host-status ${host.alive ? 'status-alive' : 'status-dead'}">
+                        ${host.alive ? '🟢 Actif' : '🔴 Inactif'}
+                    </div>
+                </div>
+                <div class="host-details">
+                    <div class="host-ports">Ports: ${portsText}</div>
+                    <div class="host-mac">MAC: ${macText}</div>
+                    <div class="host-score">Score: ${score}</div>
+                    <div class="click-hint">👆 Cliquer pour détails</div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Fonction pour afficher les détails d'un hôte
+        function showHostDetails(ip) {
+            // Trouver l'hôte dans les résultats actuels
+            const currentResults = window.currentScanResults || [];
+            const host = currentResults.find(h => h.ip === ip);
+            
+            if (!host) {
+                alert('Informations sur cet hôte non disponibles');
+                return;
+            }
+            
+            const modal = document.createElement('div');
+            modal.className = 'modal-overlay';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>🔍 Détails de l'hôte ${host.ip}</h3>
+                        <button class="modal-close" onclick="closeModal()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="scan-info">
+                            <div class="info-item">
+                                <strong>📍 Adresse IP:</strong> ${host.ip}
+                            </div>
+                            ${host.hostname ? `
+                                <div class="info-item">
+                                    <strong>🏷️ Nom d'hôte:</strong> ${host.hostname}
+                                </div>
+                            ` : ''}
+                            <div class="info-item">
+                                <strong>📊 Statut:</strong> ${host.alive ? '✅ Actif' : '❌ Inactif'}
+                            </div>
+                            ${host.mac ? `
+                                <div class="info-item">
+                                    <strong>🔗 Adresse MAC:</strong> ${host.mac}
+                                </div>
+                            ` : ''}
+                            <div class="info-item">
+                                <strong>⚠️ Score de risque:</strong> ${host.priority_score || 0}
+                            </div>
+                        </div>
+                        
+                        ${host.open_ports && host.open_ports.length > 0 ? `
+                            <div class="scan-results">
+                                <h4>🔌 Ports ouverts (${host.open_ports.length}):</h4>
+                                <div class="results-grid">
+                                    ${host.open_ports.map(port => `
+                                        <div class="result-card">
+                                            <div class="host-ip">Port ${port}</div>
+                                            <div class="host-status status-alive">Ouvert</div>
+                                            ${host.banners && host.banners[port] ? `
+                                                <div><strong>Banner:</strong> ${host.banners[port]}</div>
+                                            ` : ''}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : `
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle"></i>
+                                Aucun port ouvert détecté sur cet hôte.
+                            </div>
+                        `}
+                        
+                        ${host.http && Object.keys(host.http).length > 0 ? `
+                            <div class="scan-results">
+                                <h4>🌐 Informations HTTP:</h4>
+                                <div class="results-grid">
+                                    <div class="result-card">
+                                        ${host.http.server ? `<div><strong>Serveur:</strong> ${host.http.server}</div>` : ''}
+                                        ${host.http.x_powered_by ? `<div><strong>X-Powered-By:</strong> ${host.http.x_powered_by}</div>` : ''}
+                                        ${host.http.status_code ? `<div><strong>Code de statut:</strong> ${host.http.status_code}</div>` : ''}
+                                        ${host.http.robots_txt !== null ? `<div><strong>robots.txt:</strong> ${host.http.robots_txt ? 'Présent' : 'Absent'}</div>` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        ${host.tls && Object.keys(host.tls).length > 0 ? `
+                            <div class="scan-results">
+                                <h4>🔒 Informations TLS:</h4>
+                                <div class="results-grid">
+                                    <div class="result-card">
+                                        ${host.tls.valid !== null ? `<div><strong>Certificat valide:</strong> ${host.tls.valid ? 'Oui' : 'Non'}</div>` : ''}
+                                        ${host.tls.expires_in_days !== null ? `<div><strong>Expire dans:</strong> ${host.tls.expires_in_days} jours</div>` : ''}
+                                        ${host.tls.notAfter ? `<div><strong>Date d'expiration:</strong> ${new Date(host.tls.notAfter).toLocaleDateString('fr-FR')}</div>` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="closeModal()">Fermer</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+
+        // Fonction pour fermer la modale
+        function closeModal() {
+            const modal = document.querySelector('.modal-overlay');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        // Gestionnaire pour fermer la modale en cliquant à l'extérieur
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                closeModal();
+            }
+        });
+
+        // Gestionnaire pour fermer la modale avec la touche Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Data loading functions
+        async function loadNetworkInfo() {
+            try {
+                const response = await fetch('/api/network/info');
+                const data = await response.json();
+                
+                if (data.common_networks) {
+                    const targetSelect = document.getElementById('target');
+                    targetSelect.innerHTML = '';
+                    
+                    data.common_networks.forEach(network => {
+                        const option = document.createElement('option');
+                        option.value = network;
+                        
+                        let networkType = '';
+                        if (network.startsWith('192.168.1')) {
+                            networkType = ' (Réseau domestique classique)';
+                        } else if (network.startsWith('192.168.0')) {
+                            networkType = ' (Réseau domestique alternatif)';
+                        } else if (network.startsWith('10.')) {
+                            networkType = ' (Réseau d\'entreprise)';
+                        } else if (network.startsWith('172.16')) {
+                            networkType = ' (Réseau privé)';
+                        } else if (network === data.suggested_range) {
+                            networkType = ' (Votre réseau actuel)';
+                        }
+                        
+                        option.textContent = network + networkType;
+                        targetSelect.appendChild(option);
+                    });
+                    
+                    // Sélectionner le réseau suggéré par défaut
+                    if (data.suggested_range) {
+                        targetSelect.value = data.suggested_range;
+                    }
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des infos réseau:', error);
+            }
+        }
+
+        async function loadRecentScans() {
+            try {
+                const response = await fetch('/api/scan/history');
+                const history = await response.json();
+                
+                const recentScansDiv = document.getElementById('recentScans');
+                
+                if (history.length === 0) {
+                    recentScansDiv.innerHTML = '<p>Aucun scan récent</p>';
+                    return;
+                }
+                
+                const recentScans = history.slice(-5).reverse();
+                recentScansDiv.innerHTML = recentScans.map(scan => `
+                    <div style="padding: 15px; border-bottom: 1px solid #e0e0e0;">
+                        <strong>${scan.target}</strong>
+                        <span style="float: right; color: #7f8c8d;">
+                            ${new Date(scan.timestamp).toLocaleString()}
+                        </span>
+                        <br>
+                        <small>${scan.results_count} appareils actifs sur ${scan.total_scanned} scannés</small>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                document.getElementById('recentScans').innerHTML = '<p>Erreur lors du chargement</p>';
+            }
+        }
+
+        async function loadDetailedStatistics() {
+            try {
+                const response = await fetch('/api/scan/results');
+                const data = await response.json();
+                
+                const statsDiv = document.getElementById('detailedStats');
+                
+                if (data.results.length === 0) {
+                    statsDiv.innerHTML = '<p>Aucune donnée disponible</p>';
+                    return;
+                }
+                
+                const aliveHosts = data.results.filter(h => h.alive);
+                const highRiskHosts = data.results.filter(h => h.priority_score > 5);
+                const totalPorts = data.results.reduce((sum, h) => sum + h.open_ports.length, 0);
+                
+                statsDiv.innerHTML = `
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">${data.results.length}</div>
+                            <div class="stat-label">Total Scanné</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">${aliveHosts.length}</div>
+                            <div class="stat-label">Appareils Actifs</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">${highRiskHosts.length}</div>
+                            <div class="stat-label">Risques Élevés</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">${totalPorts}</div>
+                            <div class="stat-label">Ports Ouverts</div>
+                        </div>
+                    </div>
+                `;
+                
+            } catch (error) {
+                document.getElementById('detailedStats').innerHTML = '<p>Erreur lors du chargement</p>';
+            }
+        }
+
+        async function loadHistory() {
+            try {
+                const response = await fetch('/api/scan/history');
+                const history = await response.json();
+                
+                const historyDiv = document.getElementById('historyContent');
+                
+                if (!history || history.length === 0) {
+                    historyDiv.innerHTML = `
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">📊 Historique des Scans</h3>
+                            </div>
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle"></i>
+                                Aucun scan trouvé dans l'historique. Effectuez votre premier scan pour voir l'historique ici.
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Créer l'interface complète d'historique
+                historyDiv.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">📊 Historique des Scans</h3>
+                            <div class="card-icon">
+                                <i class="fas fa-history"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Filtres -->
+                        <div class="history-filters">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Filtrer par réseau :</label>
+                                    <select id="network-filter" onchange="filterHistory()">
+                                        <option value="">Tous les réseaux</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Filtrer par statut :</label>
+                                    <select id="status-filter" onchange="filterHistory()">
+                                        <option value="">Tous les statuts</option>
+                                        <option value="completed">Terminé</option>
+                                        <option value="failed">Échoué</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Rechercher :</label>
+                                    <input type="text" id="search-filter" placeholder="Rechercher dans l'historique..." onkeyup="filterHistory()">
+                                </div>
+                                <div class="form-group">
+                                    <label>Actions :</label>
+                                    <button class="btn btn-danger" onclick="clearHistory()" title="Vider l'historique">
+                                        <i class="fas fa-trash"></i> Vider
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Statistiques -->
+                        <div class="history-stats">
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div class="stat-icon">📊</div>
+                                    <div class="stat-value">${history.length}</div>
+                                    <div class="stat-label">Total Scans</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-icon">✅</div>
+                                    <div class="stat-value">${history.filter(s => s.status === 'completed').length}</div>
+                                    <div class="stat-label">Réussis</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-icon">❌</div>
+                                    <div class="stat-value">${history.filter(s => s.status === 'failed').length}</div>
+                                    <div class="stat-label">Échoués</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-icon">🖥️</div>
+                                    <div class="stat-value">${history.reduce((sum, s) => sum + (s.results_count || 0), 0)}</div>
+                                    <div class="stat-label">Hôtes Découverts</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Tableau -->
+                        <div class="table-container">
+                            <table class="history-table">
+                                <thead>
+                                    <tr>
+                                        <th onclick="sortHistory('timestamp')">
+                                            📅 Date/Heure <i class="fas fa-sort"></i>
+                                        </th>
+                                        <th onclick="sortHistory('target')">
+                                            🎯 Réseau <i class="fas fa-sort"></i>
+                                        </th>
+                                        <th onclick="sortHistory('status')">
+                                            📊 Statut <i class="fas fa-sort"></i>
+                                        </th>
+                                        <th onclick="sortHistory('results_count')">
+                                            🖥️ Hôtes <i class="fas fa-sort"></i>
+                                        </th>
+                                        <th onclick="sortHistory('duration')">
+                                            ⏱️ Durée <i class="fas fa-sort"></i>
+                                        </th>
+                                        <th>🔧 Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="history-tbody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+                
+                populateHistoryTable(history);
+
+                // Populer les filtres de réseau
+                populateNetworkFilter(history);
+                
+            } catch (error) {
+                console.error('Erreur lors du chargement de l\'historique:', error);
+                document.getElementById('historyContent').innerHTML = `
+                    <div class="alert alert-error">
+                        <i class="fas fa-exclamation-circle"></i>
+                        Erreur lors du chargement de l'historique: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        function populateHistoryTable(historyData) {
+            const tbody = document.getElementById('history-tbody');
+            if (!tbody) return;
+
+            tbody.innerHTML = historyData.reverse().map(scan => {
+                const date = new Date(scan.timestamp);
+                const formattedDate = date.toLocaleString('fr-FR', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                const statusClass = scan.status === 'completed' ? 'status-alive' : 'status-dead';
+                const statusText = scan.status === 'completed' ? '✅ Terminé' : '❌ Échoué';
+                
+                const duration = scan.duration ? `${scan.duration}s` : 'N/A';
+                const hostsFound = scan.results_count || 0;
+
+                return `
+                    <tr data-scan-id="${scan.id || scan.timestamp}">
+                        <td>${formattedDate}</td>
+                        <td>${scan.target || 'N/A'}</td>
+                        <td><span class="host-status ${statusClass}">${statusText}</span></td>
+                        <td>${hostsFound}</td>
+                        <td>${duration}</td>
+                        <td>
+                            <button class="btn btn-secondary" onclick="viewScanDetails('${scan.id || scan.timestamp}')" title="Voir les détails">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-secondary" onclick="exportScanData('${scan.id || scan.timestamp}')" title="Exporter les données">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="btn btn-danger" onclick="deleteScanFromHistory('${scan.id || scan.timestamp}')" title="Supprimer ce scan">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function populateNetworkFilter(historyData) {
+            const networkFilter = document.getElementById('network-filter');
+            if (!networkFilter) return;
+
+            const networks = [...new Set(historyData.map(h => h.target).filter(Boolean))];
+            networks.forEach(network => {
+                const option = document.createElement('option');
+                option.value = network;
+                option.textContent = network;
+                networkFilter.appendChild(option);
+            });
+        }
+
+        function filterHistory() {
+            const networkFilter = document.getElementById('network-filter')?.value || '';
+            const statusFilter = document.getElementById('status-filter')?.value || '';
+            const searchFilter = document.getElementById('search-filter')?.value.toLowerCase() || '';
+            
+            const rows = document.querySelectorAll('#history-tbody tr');
+            
+            rows.forEach(row => {
+                const network = row.cells[1].textContent;
+                const status = row.cells[2].textContent.toLowerCase();
+                const searchText = row.textContent.toLowerCase();
+                
+                const networkMatch = !networkFilter || network.includes(networkFilter);
+                const statusMatch = !statusFilter || status.includes(statusFilter);
+                const searchMatch = !searchFilter || searchText.includes(searchFilter);
+                
+                row.style.display = (networkMatch && statusMatch && searchMatch) ? '' : 'none';
+            });
+        }
+
+        function sortHistory(column) {
+            const tbody = document.getElementById('history-tbody');
+            if (!tbody) return;
+
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            const isAscending = !tbody.dataset.sortAsc || tbody.dataset.sortColumn !== column;
+            
+            rows.sort((a, b) => {
+                let aVal = a.cells[getColumnIndex(column)].textContent;
+                let bVal = b.cells[getColumnIndex(column)].textContent;
+                
+                // Conversion spéciale pour certaines colonnes
+                if (column === 'timestamp') {
+                    aVal = new Date(a.dataset.scanId ? a.dataset.scanId : aVal);
+                    bVal = new Date(b.dataset.scanId ? b.dataset.scanId : bVal);
+                } else if (column === 'results_count' || column === 'duration') {
+                    aVal = parseInt(aVal) || 0;
+                    bVal = parseInt(bVal) || 0;
+                }
+                
+                if (isAscending) {
+                    return aVal > bVal ? 1 : -1;
+                } else {
+                    return aVal < bVal ? 1 : -1;
+                }
+            });
+            
+            rows.forEach(row => tbody.appendChild(row));
+            tbody.dataset.sortColumn = column;
+            tbody.dataset.sortAsc = isAscending;
+        }
+
+        function getColumnIndex(column) {
+            const columns = ['timestamp', 'target', 'status', 'results_count', 'duration'];
+            return columns.indexOf(column);
+        }
+
+        function deleteScanFromHistory(scanId) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce scan de l\'historique ?')) {
+                fetch(`/api/scan/history/${scanId}`, { method: 'DELETE' })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message) {
+                            showAlert('Scan supprimé avec succès', 'success');
+                            loadHistory(); // Recharger l'historique
+                            updateHistoryBadge(); // Mettre à jour le badge
+                        } else {
+                            showAlert('Erreur lors de la suppression', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur lors de la suppression:', error);
+                        showAlert('Erreur lors de la suppression', 'error');
+                    });
+            }
+        }
+
+        function clearHistory() {
+            if (confirm('Êtes-vous sûr de vouloir vider tout l\'historique ? Cette action est irréversible.')) {
+                fetch('/api/scan/history/clear', { method: 'POST' })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message) {
+                            showAlert('Historique vidé avec succès', 'success');
+                            loadHistory(); // Recharger l'historique
+                            updateHistoryBadge(); // Mettre à jour le badge
+                        } else {
+                            showAlert('Erreur lors du vidage de l\'historique', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur lors du vidage:', error);
+                        showAlert('Erreur lors du vidage de l\'historique', 'error');
+                    });
+            }
+        }
+
+        function exportScanData(scanId) {
+            // Charger les données du scan depuis l'historique
+            fetch('/api/scan/history')
+                .then(response => response.json())
+                .then(history => {
+                    const scan = history.find(s => (s.id || s.timestamp) == scanId);
+                    if (scan) {
+                        // Créer un fichier JSON avec les données du scan
+                        const dataStr = JSON.stringify(scan, null, 2);
+                        const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                        
+                        // Créer un lien de téléchargement
+                        const url = window.URL.createObjectURL(dataBlob);
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = `scan_${scanId}_${new Date().toISOString().split('T')[0]}.json`;
+                        
+                        // Déclencher le téléchargement
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        window.URL.revokeObjectURL(url);
+                        
+                        showAlert('Données exportées avec succès', 'success');
+                    } else {
+                        showAlert('Scan non trouvé dans l\'historique', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur lors de l\'export:', error);
+                    showAlert('Erreur lors de l\'export des données', 'error');
+                });
+        }
+
+        function updateHistoryBadge() {
+            fetch('/api/scan/history')
+                .then(response => response.json())
+                .then(history => {
+                    document.getElementById('historyBadge').textContent = history.length;
+                })
+                .catch(error => console.error('Erreur:', error));
+        }
+
+        function viewScanDetails(scanId) {
+            // Charger les détails du scan depuis l'historique
+            fetch('/api/scan/history')
+                .then(response => response.json())
+                .then(history => {
+                    const scan = history.find(s => (s.id || s.timestamp) == scanId);
+                    if (scan) {
+                        showScanDetailsModal(scan);
+                    } else {
+                        showAlert('Scan non trouvé dans l\'historique', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur lors du chargement des détails:', error);
+                    showAlert('Impossible de charger les détails du scan', 'error');
+                });
+        }
+
+        function showScanDetailsModal(scanData) {
+            const modal = document.createElement('div');
+            modal.className = 'modal-overlay';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>🔍 Détails du Scan</h3>
+                        <button class="modal-close" onclick="closeModal()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="scan-info">
+                            <div class="info-item">
+                                <strong>📅 Date:</strong> ${new Date(scanData.timestamp).toLocaleString('fr-FR')}
+                            </div>
+                            <div class="info-item">
+                                <strong>🎯 Réseau:</strong> ${scanData.target || 'N/A'}
+                            </div>
+                            <div class="info-item">
+                                <strong>📊 Statut:</strong> ${scanData.status === 'completed' ? '✅ Terminé' : '❌ Échoué'}
+                            </div>
+                            <div class="info-item">
+                                <strong>🖥️ Hôtes trouvés:</strong> ${scanData.results_count || 0}
+                            </div>
+                            <div class="info-item">
+                                <strong>⏱️ Durée:</strong> ${scanData.duration || 'N/A'}s
+                            </div>
+                            <div class="info-item">
+                                <strong>🔍 Total scanné:</strong> ${scanData.total_scanned || 0}
+                            </div>
+                        </div>
+                        
+                        ${scanData.results && scanData.results.length > 0 ? `
+                            <div class="scan-results">
+                                <h4>🖥️ Hôtes découverts (${scanData.results.length}):</h4>
+                                <div class="results-grid">
+                                    ${scanData.results.map(host => `
+                                        <div class="result-card">
+                                            <div class="host-ip">${host.ip}</div>
+                                            <div class="host-status ${host.alive ? 'status-alive' : 'status-dead'}">
+                                                ${host.alive ? '🟢 Actif' : '🔴 Inactif'}
+                                            </div>
+                                            ${host.hostname ? `<div><strong>Nom:</strong> ${host.hostname}</div>` : ''}
+                                            ${host.mac ? `<div><strong>MAC:</strong> ${host.mac}</div>` : ''}
+                                            <div><strong>Ports:</strong> ${host.open_ports ? host.open_ports.join(', ') : 'Aucun'}</div>
+                                            <div><strong>Score:</strong> ${host.priority_score || 0}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="exportScanData('${scanData.id || scanData.timestamp}')">
+                            <i class="fas fa-download"></i> Exporter
+                        </button>
+                        <button class="btn btn-primary" onclick="closeModal()">Fermer</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+
+        function closeModal() {
+            const modal = document.querySelector('.modal-overlay');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        function showAlert(message, type = 'info') {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.innerHTML = `
+                <i class="fas fa-${type === 'error' ? 'exclamation-circle' : type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+                ${message}
+            `;
+            
+            const contentArea = document.querySelector('.content-area');
+            contentArea.insertBefore(alertDiv, contentArea.firstChild);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+        // Auto-refresh for dashboard
+        setInterval(() => {
+            if (currentPage === 'dashboard') {
+                loadRecentScans();
+                updateHistoryBadge();
+            }
+        }, 30000); // Refresh every 30 seconds
+    </script>
+</body>
+</html>

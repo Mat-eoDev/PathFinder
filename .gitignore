@@ -1,0 +1,59 @@
+# Fichiers à ignorer pour le projet Pathfinder
+
+# Fichiers Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Environnements virtuels
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Fichiers de configuration IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Fichiers de logs
+*.log
+
+# Fichiers de scan (résultats)
+scan_report.json
+scan_report.csv
+*.json
+*.csv
+
+# Fichiers temporaires
+*.tmp
+*.temp
+
+# Fichiers de déploiement (contiennent des chemins spécifiques)
+deploy_alwaysdata.sh
+ALWAYSDATA_*.md
+TROUBLESHOOTING.md

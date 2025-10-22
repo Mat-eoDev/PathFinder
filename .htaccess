@@ -1,0 +1,20 @@
+# Configuration AlwaysData pour Python WSGI
+RewriteEngine On
+
+# Rediriger toutes les requêtes vers passenger_wsgi.py
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ passenger_wsgi.py [QSA,L]
+
+# Configuration pour les fichiers statiques
+<Files "*.html">
+    Header set Content-Type "text/html; charset=utf-8"
+</Files>
+
+<Files "*.css">
+    Header set Content-Type "text/css"
+</Files>
+
+<Files "*.js">
+    Header set Content-Type "application/javascript"
+</Files>
