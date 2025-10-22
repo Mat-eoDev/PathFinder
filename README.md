@@ -1,6 +1,7 @@
 # 🛡️ Dashboard Sécurité Réseau
 
 Un dashboard web pour scanner les réseaux locaux et détecter les vulnérabilités potentielles.
+C'est de l'IA histoire de visualiser pour la suite
 
 ## 🚀 Fonctionnalités
 
