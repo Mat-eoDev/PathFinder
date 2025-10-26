@@ -1,0 +1,88 @@
+# PathFinder - .gitignore
+
+# Builds et binaires
+PathFinderMAUI/bin/
+PathFinderMAUI/obj/
+*.app
+*.dmg
+*.apk
+*.exe
+*.msix
+*.msixbundle
+*.pkg
+
+# Clés et certificats
+*.keystore
+*.p12
+*.cer
+*.mobileprovision
+.ssh/pathfinder_deploy_key
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+venv/
+env/
+
+# macOS
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+PathFinderWeb/backend/*.log
+
+# Base de données locale
+*.db
+*.sqlite
+*.sqlite3
+
+# Node modules (si ajouté plus tard)
+node_modules/
+package-lock.json
+
+# Fichiers temporaires
+tmp/
+temp/
+*.tmp
+
+# Rapports de crash
+*.ips
+PathFinder-*.ips
+
+# Downloads (fichiers volumineux)
+PathFinderWeb/downloads/*.dmg
+PathFinderWeb/downloads/*.apk
+PathFinderWeb/downloads/*.exe
+PathFinderWeb/downloads/*.msix
+
+# Garder seulement le README dans downloads
+!PathFinderWeb/downloads/README.md
+
+# Environment variables
+.env
+.env.local
+
+# Fichiers de configuration sensibles
+config.secret.json
+secrets.json
+
+# Documentation auto-générée temporaire
+CHANGELOG_AUTO_*.md
+COMPLETE_GUIDE.md
+

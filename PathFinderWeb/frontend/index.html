@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PathFinder - Dashboard de Sécurité</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="skeleton.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <!-- Landing Page -->
+    <div id="landing-page" class="landing-page">
+        <!-- Navigation Landing -->
+        <nav class="landing-nav">
+            <div class="landing-nav-content">
+                <div class="landing-logo">
+                    <h1>🎯 PathFinder</h1>
+                </div>
+                <div class="nav-menu">
+                    <a href="#home" class="nav-link active">Accueil</a>
+                    <a href="#features" class="nav-link">Fonctionnalités</a>
+                    <a href="#pricing" class="nav-link">Tarifs</a>
+                    <a href="#documentation" class="nav-link">Documentation</a>
+                    <a href="#about" class="nav-link">À propos</a>
+                </div>
+                <button id="nav-login-btn" class="btn btn-primary">Se connecter</button>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Scanner de Sécurité
+                    <span class="gradient-text">Professionnel</span>
+                </h1>
+                <p class="hero-description">
+                    Analysez votre réseau en profondeur. Détectez les vulnérabilités. 
+                    Protégez vos infrastructures avec PathFinder.
+                </p>
+                <div class="hero-buttons">
+                    <button id="hero-login-btn" class="btn btn-primary btn-large">
+                        Accéder au Dashboard
+                    </button>
+                    <button id="hero-register-btn" class="btn btn-secondary btn-large">
+                        Créer un compte
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">⚡</div>
+                        <div class="hero-stat-label">Scan Ultra-Rapide</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">🔍</div>
+                        <div class="hero-stat-label">Détection Avancée</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">📊</div>
+                        <div class="hero-stat-label">Rapports Détaillés</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <div class="features-content">
+                <h2 class="section-title">Fonctionnalités Puissantes</h2>
+                <p class="section-subtitle">
+                    Tous les outils dont vous avez besoin pour sécuriser votre réseau
+                </p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🌐</div>
+                        <h3>Scan Réseau Complet</h3>
+                        <p>Découvrez tous les appareils connectés à votre réseau, y compris les téléphones mobiles et IoT.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3>Analyse de Vulnérabilités</h3>
+                        <p>Détection automatique des CVE, ports critiques ouverts et configurations à risque.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">💻</div>
+                        <h3>Détection OS Précise</h3>
+                        <p>Identification précise des systèmes d'exploitation : Windows, macOS, Linux, iOS, Android.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📈</div>
+                        <h3>Dashboard Interactif</h3>
+                        <p>Visualisez vos données avec des graphiques modernes et des statistiques en temps réel.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🔐</div>
+                        <h3>Sécurisé & Privé</h3>
+                        <p>Vos données sont stockées localement et sécurisées avec un chiffrement de bout en bout.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">💻</div>
+                        <h3>Multi-Plateforme Desktop</h3>
+                        <p>Application desktop disponible sur Windows, macOS et Android. Dashboard web accessible de partout.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="stats-section-content">
+                <h2 class="section-title">PathFinder en Chiffres</h2>
+                <p class="section-subtitle">Des performances qui parlent d'elles-mêmes</p>
+                
+                <div class="stats-big-grid">
+                    <div class="stat-big-card">
+                        <div class="stat-big-number counter" data-target="99.9">0</div>
+                        <div class="stat-big-label">Précision de détection</div>
+                        <div class="stat-big-desc">Identification fiable des vulnérabilités</div>
+                        <div class="stat-progress">
+                            <div class="stat-progress-bar" style="width: 99.9%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-big-card">
+                        <div class="stat-big-number"><span class="counter" data-target="30">0</span>s</div>
+                        <div class="stat-big-label">Temps de scan moyen</div>
+                        <div class="stat-big-desc">Analyse complète d'un réseau /24</div>
+                        <div class="stat-progress">
+                            <div class="stat-progress-bar" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-big-card">
+                        <div class="stat-big-number"><span class="counter" data-target="1000">0</span>+</div>
+                        <div class="stat-big-label">CVE détectées</div>
+                        <div class="stat-big-desc">Base de données constamment mise à jour</div>
+                        <div class="stat-progress">
+                            <div class="stat-progress-bar" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-big-card">
+                        <div class="stat-big-number">24/7</div>
+                        <div class="stat-big-label">Surveillance continue</div>
+                        <div class="stat-big-desc">Protection en temps réel</div>
+                        <div class="stat-progress">
+                            <div class="stat-progress-bar" style="width: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section IMMERSIVE -->
+        <section class="how-it-works-immersive">
+            <div class="how-it-works-content">
+                <h2 class="section-title">Comment Ça Marche ?</h2>
+                <p class="section-subtitle">De l'installation à la protection totale en quelques minutes</p>
+                
+                <!-- Visual Process Flow -->
+                <div class="process-flow">
+                    <!-- Step 1 -->
+                    <div class="process-step" data-step="1">
+                        <div class="process-visual">
+                            <div class="process-screen">
+                                <div class="screen-header">
+                                    <div class="screen-dots">
+                                        <span></span><span></span><span></span>
+                                    </div>
+                                    <div class="screen-title">Installation PathFinder</div>
+                                </div>
+                                <div class="screen-body">
+                                    <div class="install-icon">📥</div>
+                                    <div class="install-progress">
+                                        <div class="install-bar"></div>
+                                    </div>
+                                    <div class="install-text">Téléchargement en cours...</div>
+                                    <div class="install-platforms">
+                                        <span class="platform-badge">🪟 Windows</span>
+                                        <span class="platform-badge">🍎 macOS</span>
+                                        <span class="platform-badge">🤖 Android</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="process-info">
+                            <div class="process-number">01</div>
+                            <h3>Installation Ultra-Rapide</h3>
+                            <p>Téléchargez PathFinder en un clic. Installation automatique sans configuration. Prêt à scanner en moins de 60 secondes.</p>
+                            <div class="process-features">
+                                <span>✅ Aucun prérequis</span>
+                                <span>✅ Interface multilingue</span>
+                                <span>✅ Mise à jour auto</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Connector -->
+                    <div class="process-connector">
+                        <div class="connector-line"></div>
+                        <div class="connector-pulse"></div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="process-step reverse" data-step="2">
+                        <div class="process-info">
+                            <div class="process-number">02</div>
+                            <h3>Scan Intelligent Multi-Couches</h3>
+                            <p>PathFinder analyse votre réseau avec 4 techniques simultanées : ICMP ping, ARP scan, TCP handshake, et banner grabbing pour une détection à 99.9%.</p>
+                            <div class="process-features">
+                                <span>⚡ Scan en parallèle</span>
+                                <span>🎯 Détection précise</span>
+                                <span>🔍 Deep inspection</span>
+                            </div>
+                        </div>
+                        <div class="process-visual">
+                            <div class="process-screen">
+                                <div class="screen-header">
+                                    <div class="screen-dots">
+                                        <span></span><span></span><span></span>
+                                    </div>
+                                    <div class="screen-title">Scan en cours...</div>
+                                </div>
+                                <div class="screen-body scan-screen">
+                                    <div class="scan-radar">
+                                        <div class="radar-sweep"></div>
+                                        <div class="radar-dot" style="top: 30%; left: 40%;"></div>
+                                        <div class="radar-dot" style="top: 60%; left: 70%;"></div>
+                                        <div class="radar-dot" style="top: 45%; left: 60%;"></div>
+                                        <div class="radar-dot" style="top: 70%; left: 30%;"></div>
+                                        <div class="radar-center"></div>
+                                    </div>
+                                    <div class="scan-stats">
+                                        <div class="scan-stat-item">
+                                            <span class="stat-value">42</span>
+                                            <span class="stat-label">Appareils détectés</span>
+                                        </div>
+                                        <div class="scan-stat-item">
+                                            <span class="stat-value">18s</span>
+                                            <span class="stat-label">Temps écoulé</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Connector -->
+                    <div class="process-connector">
+                        <div class="connector-line"></div>
+                        <div class="connector-pulse"></div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="process-step" data-step="3">
+                        <div class="process-visual">
+                            <div class="process-screen wide">
+                                <div class="screen-header">
+                                    <div class="screen-dots">
+                                        <span></span><span></span><span></span>
+                                    </div>
+                                    <div class="screen-title">Dashboard PathFinder</div>
+                                </div>
+                                <div class="screen-body dashboard-preview-mini">
+                                    <div class="mini-card">
+                                        <div class="mini-chart"></div>
+                                        <span>Évolution</span>
+                                    </div>
+                                    <div class="mini-card">
+                                        <div class="mini-pie"></div>
+                                        <span>OS</span>
+                                    </div>
+                                    <div class="mini-card alert">
+                                        <div class="alert-icon">🔴</div>
+                                        <span>5 Critiques</span>
+                                    </div>
+                                    <div class="mini-card success">
+                                        <div class="success-icon">✅</div>
+                                        <span>37 Sécurisés</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="process-info">
+                            <div class="process-number">03</div>
+                            <h3>Analyse & Visualisation</h3>
+                            <p>Résultats instantanés avec dashboard interactif. Graphiques temps réel, alertes prioritaires, et recommandations d'experts pour chaque vulnérabilité détectée.</p>
+                            <div class="process-features">
+                                <span>📊 Graphiques live</span>
+                                <span>🚨 Alertes prioritaires</span>
+                                <span>📑 Rapports PDF/HTML</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Connector -->
+                    <div class="process-connector">
+                        <div class="connector-line"></div>
+                        <div class="connector-pulse"></div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="process-step reverse" data-step="4">
+                        <div class="process-info">
+                            <div class="process-number">04</div>
+                            <h3>Action & Protection Continue</h3>
+                            <p>Guides pas-à-pas pour corriger chaque vulnérabilité. Surveillance 24/7 avec notifications instantanées. Historique complet pour suivre l'évolution de votre sécurité.</p>
+                            <div class="process-features">
+                                <span>🛡️ Protection active</span>
+                                <span>🔔 Alertes temps réel</span>
+                                <span>📈 Suivi évolution</span>
+                            </div>
+                        </div>
+                        <div class="process-visual">
+                            <div class="process-screen">
+                                <div class="screen-header">
+                                    <div class="screen-dots">
+                                        <span></span><span></span><span></span>
+                                    </div>
+                                    <div class="screen-title">Actions Recommandées</div>
+                                </div>
+                                <div class="screen-body actions-screen">
+                                    <div class="action-item critical">
+                                        <div class="action-icon">🔴</div>
+                                        <div class="action-text">
+                                            <strong>Port 22 exposé</strong>
+                                            <span>Fermer ou filtrer SSH</span>
+                                        </div>
+                                        <button class="action-btn">Corriger</button>
+                                    </div>
+                                    <div class="action-item warning">
+                                        <div class="action-icon">🟠</div>
+                                        <div class="action-text">
+                                            <strong>SSL expiré</strong>
+                                            <span>Renouveler certificat</span>
+                                        </div>
+                                        <button class="action-btn">Corriger</button>
+                                    </div>
+                                    <div class="action-item success">
+                                        <div class="action-icon">✅</div>
+                                        <div class="action-text">
+                                            <strong>Firewall actif</strong>
+                                            <span>Configuration optimale</span>
+                                        </div>
+                                        <button class="action-btn">Détails</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom CTA -->
+                <div class="process-cta">
+                    <h3>Prêt à commencer ?</h3>
+                    <p>Rejoignez +10,000 professionnels qui sécurisent leur réseau avec PathFinder</p>
+                    <button class="btn btn-primary btn-large cta-demo-btn">
+                        🚀 Essayer Gratuitement
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="pricing-section">
+            <div class="pricing-content">
+                <h2 class="section-title">Tarifs Transparents</h2>
+                <p class="section-subtitle">Choisissez le plan adapté à vos besoins</p>
+                
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <h3>Gratuit</h3>
+                            <div class="pricing-price">
+                                <span class="price-amount">0€</span>
+                                <span class="price-period">/mois</span>
+                            </div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>✅ Scans illimités</li>
+                            <li>✅ Jusqu'à 50 appareils</li>
+                            <li>✅ Détection OS basique</li>
+                            <li>✅ Rapports PDF</li>
+                            <li>✅ Dashboard web</li>
+                            <li>❌ CVE Scanner</li>
+                            <li>❌ Directory Buster</li>
+                            <li>❌ Support prioritaire</li>
+                        </ul>
+                        <button class="btn btn-secondary btn-pricing">Commencer</button>
+                    </div>
+                    
+                    <div class="pricing-card pricing-card-featured">
+                        <div class="pricing-badge">⭐ POPULAIRE</div>
+                        <div class="pricing-header">
+                            <h3>Pro</h3>
+                            <div class="pricing-price">
+                                <span class="price-amount">29€</span>
+                                <span class="price-period">/mois</span>
+                            </div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>✅ Tout du plan Gratuit</li>
+                            <li>✅ Appareils illimités</li>
+                            <li>✅ Détection OS avancée</li>
+                            <li>✅ CVE Scanner complet</li>
+                            <li>✅ Directory Buster</li>
+                            <li>✅ Historique illimité</li>
+                            <li>✅ Alertes en temps réel</li>
+                            <li>✅ Support prioritaire</li>
+                        </ul>
+                        <button class="btn btn-primary btn-pricing">Choisir Pro</button>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <h3>Enterprise</h3>
+                            <div class="pricing-price">
+                                <span class="price-amount">Sur mesure</span>
+                            </div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>✅ Tout du plan Pro</li>
+                            <li>✅ Multi-utilisateurs</li>
+                            <li>✅ API complète</li>
+                            <li>✅ Intégrations SIEM</li>
+                            <li>✅ Scans programmés</li>
+                            <li>✅ Support 24/7</li>
+                            <li>✅ Formation sur site</li>
+                            <li>✅ SLA garanti</li>
+                        </ul>
+                        <button class="btn btn-secondary btn-pricing">Nous contacter</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials-section">
+            <div class="testimonials-content">
+                <h2 class="section-title">Ils Nous Font Confiance</h2>
+                <p class="section-subtitle">Rejoignez des milliers de professionnels de la sécurité</p>
+                
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-text">"PathFinder a révolutionné notre approche de la sécurité réseau. La détection des vulnérabilités est impressionnante et le dashboard est d'une clarté remarquable."</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">👨‍💼</div>
+                            <div>
+                                <div class="testimonial-name">Jean Dupont</div>
+                                <div class="testimonial-title">RSSI, TechCorp</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-text">"Outil indispensable pour tout pentester. La rapidité du scan et la précision de l'OS fingerprinting sont au top. Je recommande sans hésiter."</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">👩‍💻</div>
+                            <div>
+                                <div class="testimonial-name">Marie Martin</div>
+                                <div class="testimonial-title">Pentester, SecureIT</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-text">"Interface intuitive, résultats détaillés et support réactif. PathFinder s'est imposé comme notre solution de référence pour l'audit réseau."</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">👨‍🔧</div>
+                            <div>
+                                <div class="testimonial-name">Pierre Bernard</div>
+                                <div class="testimonial-title">Admin Système, DataFlow</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="documentation" class="faq-section">
+            <div class="faq-content">
+                <h2 class="section-title">Questions Fréquentes</h2>
+                <p class="section-subtitle">Tout ce que vous devez savoir sur PathFinder</p>
+                
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h3 class="faq-question">🔒 PathFinder est-il sûr à utiliser ?</h3>
+                        <p class="faq-answer">Absolument. PathFinder utilise uniquement des méthodes de scan non-intrusives et respecte les bonnes pratiques de sécurité. Toutes vos données restent stockées localement.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h3 class="faq-question">💻 Quels systèmes sont supportés ?</h3>
+                        <p class="faq-answer">L'application desktop fonctionne sur Windows 10+, macOS 11+ et Android 8+. Le dashboard web est accessible depuis n'importe quel navigateur moderne.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h3 class="faq-question">⚡ Combien de temps prend un scan ?</h3>
+                        <p class="faq-answer">Un scan complet d'un réseau /24 (254 adresses) prend généralement moins de 30 secondes. La durée varie selon la taille du réseau et le nombre de ports scannés.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h3 class="faq-question">📊 Puis-je exporter les rapports ?</h3>
+                        <p class="faq-answer">Oui ! PathFinder permet d'exporter vos rapports en PDF, HTML et JSON. Vous pouvez également accéder à l'historique complet de vos scans dans le dashboard web.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h3 class="faq-question">🔄 Les CVE sont-elles à jour ?</h3>
+                        <p class="faq-answer">Notre base de données CVE est mise à jour quotidiennement depuis le NVD (National Vulnerability Database) pour garantir une détection à jour des vulnérabilités.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h3 class="faq-question">🤝 Y a-t-il un support technique ?</h3>
+                        <p class="faq-answer">Les utilisateurs Pro et Enterprise bénéficient d'un support prioritaire par email et chat. La documentation complète est accessible à tous gratuitement.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section id="about" class="cta">
+            <div class="cta-content">
+                <h2>Prêt à Sécuriser Votre Réseau ?</h2>
+                <p>Rejoignez les professionnels de la sécurité qui font confiance à PathFinder</p>
+                <button id="cta-login-btn" class="btn btn-primary btn-large">
+                    Commencer Maintenant
+                </button>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="landing-footer">
+            <div class="footer-content">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <h3>🎯 PathFinder</h3>
+                        <p>La solution professionnelle de scan et d'audit de sécurité réseau.</p>
+                        <div class="footer-social">
+                            <a href="#" class="social-link">🐦 Twitter</a>
+                            <a href="#" class="social-link">💼 LinkedIn</a>
+                            <a href="#" class="social-link">💻 GitHub</a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Produit</h4>
+                        <a href="#features">Fonctionnalités</a>
+                        <a href="#pricing">Tarifs</a>
+                        <a href="#documentation">Documentation</a>
+                        <a href="#">Télécharger</a>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Ressources</h4>
+                        <a href="#">Blog</a>
+                        <a href="#">Guides</a>
+                        <a href="#">API</a>
+                        <a href="#">Support</a>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Entreprise</h4>
+                        <a href="#about">À propos</a>
+                        <a href="#">Carrières</a>
+                        <a href="#">Contact</a>
+                        <a href="#">Presse</a>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Légal</h4>
+                        <a href="#">Confidentialité</a>
+                        <a href="#">Conditions</a>
+                        <a href="#">Sécurité</a>
+                        <a href="#">Cookies</a>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <p>© 2025 PathFinder - Security Scanner Dashboard</p>
+                    <p class="footer-made">Conçu avec ❤️ pour les professionnels de la cybersécurité</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Page de Connexion -->
+    <div id="login-page" class="auth-page" style="display: none;">
+        <div class="auth-container">
+            <div class="auth-header">
+                <h1>🎯 PathFinder</h1>
+                <p>Security Scanner Dashboard</p>
+            </div>
+            
+            <div class="auth-card">
+                <h2>Connexion</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">📧 Email</label>
+                        <input type="email" id="login-email" placeholder="votre@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">🔒 Mot de passe</label>
+                        <input type="password" id="login-password" placeholder="••••••••" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Se connecter</button>
+                    
+                    <p class="auth-switch">
+                        Pas encore de compte ? 
+                        <a href="#" id="show-register">Créer un compte</a>
+                    </p>
+                </form>
+                
+                <div id="login-error" class="error-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page d'Inscription -->
+    <div id="register-page" class="auth-page" style="display: none;">
+        <div class="auth-container">
+            <div class="auth-header">
+                <h1>🎯 PathFinder</h1>
+                <p>Security Scanner Dashboard</p>
+            </div>
+            
+            <div class="auth-card">
+                <h2>Créer un compte</h2>
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="register-username">👤 Nom d'utilisateur</label>
+                        <input type="text" id="register-username" placeholder="JohnDoe" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-email">📧 Email</label>
+                        <input type="email" id="register-email" placeholder="votre@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-password">🔒 Mot de passe</label>
+                        <input type="password" id="register-password" placeholder="••••••••" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Créer le compte</button>
+                    
+                    <p class="auth-switch">
+                        Déjà un compte ? 
+                        <a href="#" id="show-login">Se connecter</a>
+                    </p>
+                </form>
+                
+                <div id="register-error" class="error-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Principal -->
+    <div id="dashboard-page" style="display: none;">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1>🎯 PathFinder</h1>
+            </div>
+            <div class="nav-menu-dashboard">
+                <button id="back-to-site-btn" class="btn-back-site"
+                        data-tooltip="Retourner au site principal">
+                    🏠 Accueil
+                </button>
+                <a href="#" class="nav-dashboard-link" data-page="guide" 
+                   data-tooltip="Guide de démarrage et téléchargements">
+                    🚀 Démarrer
+                </a>
+                <a href="#" class="nav-dashboard-link active" data-page="scans" 
+                   data-tooltip="Voir tous vos scans">
+                    📊 Scans
+                </a>
+                <a href="#" class="nav-dashboard-link" data-page="tickets"
+                   data-tooltip="Support et tickets">
+                    🎫 Support
+                    <span id="tickets-badge" class="nav-badge" style="display: none;">0</span>
+                </a>
+                <a href="#" class="nav-dashboard-link" data-page="profile"
+                   data-tooltip="Gérer votre profil">
+                    👤 Profil
+                </a>
+            </div>
+            <div class="nav-user">
+                <span id="user-role-badge" style="display: none;"></span>
+                <span id="user-info" data-tooltip="Utilisateur connecté"></span>
+                <button id="logout-btn" class="btn btn-secondary" 
+                        data-tooltip="Se déconnecter">
+                    Déconnexion
+                </button>
+            </div>
+        </nav>
+
+        <!-- Admin User Selector -->
+        <div id="admin-panel" style="display: none;" class="admin-panel">
+            <div class="admin-selector">
+                <label for="user-select">👑 Mode Admin - Voir les données de :</label>
+                <select id="user-select" class="user-select">
+                    <option value="">📊 Tous les utilisateurs</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Page Guide de Démarrage -->
+        <div id="guide-view" class="dashboard-container" style="display: none;">
+            <div class="guide-container">
+                <!-- Welcome Banner -->
+                <div class="guide-welcome">
+                    <div class="guide-welcome-content">
+                        <h1>🚀 Bienvenue sur PathFinder !</h1>
+                        <p>Suivez ce guide pour effectuer votre premier scan réseau en quelques minutes</p>
+                    </div>
+                    <div class="guide-progress">
+                        <div class="progress-step completed">1</div>
+                        <div class="progress-line"></div>
+                        <div class="progress-step">2</div>
+                        <div class="progress-line"></div>
+                        <div class="progress-step">3</div>
+                        <div class="progress-line"></div>
+                        <div class="progress-step">4</div>
+                    </div>
+                </div>
+
+                <!-- Étape 1: Téléchargement -->
+                <div class="guide-section">
+                    <div class="guide-section-header">
+                        <div class="guide-step-number">1</div>
+                        <div>
+                            <h2>📥 Télécharger l'Application</h2>
+                            <p>Choisissez la version adaptée à votre système d'exploitation</p>
+                        </div>
+                    </div>
+                    
+                    <div class="download-grid">
+                        <!-- Windows -->
+                        <div class="download-card">
+                            <div class="download-icon">🪟</div>
+                            <h3>Windows</h3>
+                            <p>Windows 10 & 11 (64-bit)</p>
+                            <div class="download-info">
+                                <span>📦 Version 2.0.1</span>
+                                <span>💾 45 MB</span>
+                            </div>
+                            <button class="btn btn-primary download-btn" onclick="downloadApp('windows')">
+                                ⬇️ Télécharger pour Windows
+                            </button>
+                            <div class="download-requirements">
+                                <strong>Prérequis :</strong>
+                                <ul>
+                                    <li>Windows 10 ou supérieur</li>
+                                    <li>.NET 8.0 (installé automatiquement)</li>
+                                    <li>Droits administrateur (pour le scan)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- macOS -->
+                        <div class="download-card featured">
+                            <div class="download-badge">⭐ RECOMMANDÉ</div>
+                            <div class="download-icon">🍎</div>
+                            <h3>macOS</h3>
+                            <p>macOS 11 Big Sur et supérieur</p>
+                            <div class="download-info">
+                                <span>📦 Version 2.0.1</span>
+                                <span>💾 38 MB</span>
+                            </div>
+                            <button class="btn btn-primary download-btn" onclick="downloadApp('macos')">
+                                ⬇️ Télécharger pour macOS
+                            </button>
+                            <div class="download-requirements">
+                                <strong>Prérequis :</strong>
+                                <ul>
+                                    <li>macOS 11 Big Sur minimum</li>
+                                    <li>Architecture Apple Silicon ou Intel</li>
+                                    <li>Autorisation dans Préférences Système</li>
+                                </ul>
+                                
+                                <div style="margin-top: 15px; padding: 12px; background: rgba(255, 152, 0, 0.1); border-left: 3px solid #ff9800; border-radius: 4px;">
+                                    <strong style="color: #ff9800;">⚠️ Note de Sécurité macOS</strong>
+                                    <p style="margin: 8px 0 0 0; font-size: 13px; line-height: 1.6;">
+                                        macOS affichera un avertissement car l'app n'est pas signée.<br>
+                                        <strong>Solution :</strong> Clic droit sur PathFinder.app → "Ouvrir" → Confirmer
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Android -->
+                        <div class="download-card">
+                            <div class="download-icon">🤖</div>
+                            <h3>Android</h3>
+                            <p>Android 8.0 et supérieur</p>
+                            <div class="download-info">
+                                <span>📦 Version 2.0.1</span>
+                                <span>💾 25 MB</span>
+                            </div>
+                            <button class="btn btn-primary download-btn" onclick="downloadApp('android')">
+                                ⬇️ Télécharger pour Android
+                            </button>
+                            <div class="download-requirements">
+                                <strong>Prérequis :</strong>
+                                <ul>
+                                    <li>Android 8.0 (Oreo) minimum</li>
+                                    <li>Connexion au même réseau Wi-Fi</li>
+                                    <li>Autorisation réseau</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Étape 2: Installation -->
+                <div class="guide-section">
+                    <div class="guide-section-header">
+                        <div class="guide-step-number">2</div>
+                        <div>
+                            <h2>⚙️ Installation</h2>
+                            <p>Instructions selon votre plateforme</p>
+                        </div>
+                    </div>
+                    
+                    <div class="installation-tabs">
+                        <button class="install-tab active" data-os="windows">🪟 Windows</button>
+                        <button class="install-tab" data-os="macos">🍎 macOS</button>
+                        <button class="install-tab" data-os="android">🤖 Android</button>
+                    </div>
+
+                    <div class="installation-content">
+                        <!-- Windows -->
+                        <div id="install-windows" class="install-instructions active">
+                            <div class="instruction-steps">
+                                <div class="instruction-step">
+                                    <div class="instruction-number">1</div>
+                                    <div class="instruction-content">
+                                        <h4>Téléchargez le fichier .exe</h4>
+                                        <p>Double-cliquez sur <code>PathFinder-Setup.exe</code></p>
+                                    </div>
+                                </div>
+                                <div class="instruction-step">
+                                    <div class="instruction-number">2</div>
+                                    <div class="instruction-content">
+                                        <h4>Suivez l'assistant d'installation</h4>
+                                        <p>Acceptez les permissions et choisissez le dossier d'installation</p>
+                                    </div>
+                                </div>
+                                <div class="instruction-step">
+                                    <div class="instruction-number">3</div>
+                                    <div class="instruction-content">
+                                        <h4>Lancez PathFinder</h4>
+                                        <p>L'icône apparaîtra sur votre bureau et dans le menu Démarrer</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- macOS -->
+                        <div id="install-macos" class="install-instructions">
+                            <div class="instruction-steps">
+                                <div class="instruction-step">
+                                    <div class="instruction-number">1</div>
+                                    <div class="instruction-content">
+                                        <h4>Ouvrez le fichier .dmg</h4>
+                                        <p>Montez le disque <code>PathFinder.dmg</code></p>
+                                    </div>
+                                </div>
+                                <div class="instruction-step">
+                                    <div class="instruction-number">2</div>
+                                    <div class="instruction-content">
+                                        <h4>Glissez vers Applications</h4>
+                                        <p>Faites glisser PathFinder.app dans le dossier Applications</p>
+                                    </div>
+                                </div>
+                                <div class="instruction-step" style="background: rgba(255, 152, 0, 0.05); border-left: 3px solid #ff9800;">
+                                    <div class="instruction-number" style="background: linear-gradient(135deg, #ff9800, #ff5722);">⚠️</div>
+                                    <div class="instruction-content">
+                                        <h4 style="color: #ff9800;">Débloquer macOS Gatekeeper</h4>
+                                        <p><strong>macOS va bloquer l'application</strong> car elle n'est pas signée Apple.</p>
+                                        <p style="margin-top: 10px;"><strong>Solution :</strong></p>
+                                        <ul style="margin-left: 20px; margin-top: 8px;">
+                                            <li><strong>Clic droit</strong> sur PathFinder.app</li>
+                                            <li>Choisis <strong>"Ouvrir"</strong></li>
+                                            <li>Confirme en cliquant <strong>"Ouvrir"</strong></li>
+                                        </ul>
+                                        <p style="margin-top: 10px; padding: 8px; background: rgba(76, 175, 80, 0.1); border-radius: 4px; font-size: 13px;">
+                                            ✅ Après la première ouverture, double-clic fonctionnera normalement
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="instruction-step">
+                                    <div class="instruction-number">3</div>
+                                    <div class="instruction-content">
+                                        <h4>Autorisez l'application</h4>
+                                        <p>Clic droit → Ouvrir (première fois) pour autoriser l'app</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Android -->
+                        <div id="install-android" class="install-instructions">
+                            <div class="instruction-steps">
+                                <div class="instruction-step">
+                                    <div class="instruction-number">1</div>
+                                    <div class="instruction-content">
+                                        <h4>Téléchargez le fichier .apk</h4>
+                                        <p>Ouvrez <code>PathFinder.apk</code> sur votre appareil</p>
+                                    </div>
+                                </div>
+                                <div class="instruction-step">
+                                    <div class="instruction-number">2</div>
+                                    <div class="instruction-content">
+                                        <h4>Autorisez les sources inconnues</h4>
+                                        <p>Paramètres → Sécurité → Sources inconnues (si demandé)</p>
+                                    </div>
+                                </div>
+                                <div class="instruction-step">
+                                    <div class="instruction-number">3</div>
+                                    <div class="instruction-content">
+                                        <h4>Installez l'application</h4>
+                                        <p>Suivez les instructions d'installation Android</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Étape 3: Premier Scan -->
+                <div class="guide-section">
+                    <div class="guide-section-header">
+                        <div class="guide-step-number">3</div>
+                        <div>
+                            <h2>🔍 Lancer Votre Premier Scan</h2>
+                            <p>Processus complet étape par étape</p>
+                        </div>
+                    </div>
+
+                    <div class="scan-process">
+                        <!-- Visual Process -->
+                        <div class="scan-visual">
+                            <div class="scan-step-visual">
+                                <div class="visual-icon">💻</div>
+                                <h4>1. Ouvrez l'Application</h4>
+                                <p>Lancez PathFinder sur votre ordinateur</p>
+                            </div>
+                            <div class="visual-arrow">→</div>
+                            <div class="scan-step-visual">
+                                <div class="visual-icon">🔐</div>
+                                <h4>2. Connectez-vous</h4>
+                                <p>Utilisez vos identifiants créés sur ce site</p>
+                            </div>
+                            <div class="visual-arrow">→</div>
+                            <div class="scan-step-visual">
+                                <div class="visual-icon">🎯</div>
+                                <h4>3. Cliquez "Scan"</h4>
+                                <p>Le scan démarre automatiquement</p>
+                            </div>
+                            <div class="visual-arrow">→</div>
+                            <div class="scan-step-visual">
+                                <div class="visual-icon">⏳</div>
+                                <h4>4. Patientez 15-30s</h4>
+                                <p>L'analyse de votre réseau est en cours</p>
+                            </div>
+                        </div>
+
+                        <!-- Detailed Steps -->
+                        <div class="scan-details-box">
+                            <h3>📋 Ce qui se passe pendant le scan :</h3>
+                            <div class="scan-detail-grid">
+                                <div class="scan-detail-item">
+                                    <span class="detail-icon">🌐</span>
+                                    <div>
+                                        <strong>Détection des appareils</strong>
+                                        <p>ICMP ping, ARP scan, TCP handshake pour trouver tous les hôtes actifs</p>
+                                    </div>
+                                </div>
+                                <div class="scan-detail-item">
+                                    <span class="detail-icon">🖥️</span>
+                                    <div>
+                                        <strong>Identification OS</strong>
+                                        <p>Analyse TTL, ports caractéristiques et banners pour déterminer l'OS</p>
+                                    </div>
+                                </div>
+                                <div class="scan-detail-item">
+                                    <span class="detail-icon">🔒</span>
+                                    <div>
+                                        <strong>Scan des ports</strong>
+                                        <p>Vérification de 100+ ports critiques et services exposés</p>
+                                    </div>
+                                </div>
+                                <div class="scan-detail-item">
+                                    <span class="detail-icon">🛡️</span>
+                                    <div>
+                                        <strong>Analyse CVE</strong>
+                                        <p>Détection automatique des vulnérabilités connues (5000+ CVE)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Étape 4: Résultats -->
+                <div class="guide-section">
+                    <div class="guide-section-header">
+                        <div class="guide-step-number">4</div>
+                        <div>
+                            <h2>📊 Consulter les Résultats</h2>
+                            <p>Vos données de sécurité accessibles partout</p>
+                        </div>
+                    </div>
+
+                    <div class="results-options">
+                        <div class="result-option">
+                            <div class="result-icon">💻</div>
+                            <h3>Dans l'Application Desktop</h3>
+                            <p>Les résultats s'affichent immédiatement après le scan dans l'application desktop Windows/macOS/Android.</p>
+                            <ul>
+                                <li>✅ Liste complète des appareils détectés</li>
+                                <li>✅ Niveau de risque par appareil (couleurs)</li>
+                                <li>✅ Ports ouverts avec liens d'accès directs</li>
+                                <li>✅ Export PDF haute qualité</li>
+                            </ul>
+                        </div>
+
+                        <div class="result-option featured">
+                            <div class="result-badge">🌟 RECOMMANDÉ</div>
+                            <div class="result-icon">🌐</div>
+                            <h3>Dashboard Web</h3>
+                            <p>Consultez vos résultats ici même, sur ce dashboard web (où vous êtes actuellement).</p>
+                            <ul>
+                                <li>✅ Graphiques interactifs temps réel</li>
+                                <li>✅ Historique complet de tous vos scans</li>
+                                <li>✅ Statistiques et tendances</li>
+                                <li>✅ Accessible de n'importe où</li>
+                            </ul>
+                            <button class="btn btn-primary" onclick="switchDashboardPage('scans')">
+                                📊 Voir mes scans
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section Aide -->
+                <div class="guide-help">
+                    <div class="help-card">
+                        <h3>❓ Besoin d'aide ?</h3>
+                        <p>Notre équipe de support est là pour vous accompagner</p>
+                        <div class="help-actions">
+                            <button class="btn btn-secondary" onclick="switchDashboardPage('tickets')">
+                                🎫 Créer un ticket
+                            </button>
+                            <a href="#documentation" class="btn btn-secondary">
+                                📚 Documentation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Scans -->
+        <div id="scans-view" class="dashboard-container">
+            <!-- Statistiques Globales -->
+            <div class="stats-grid">
+                <div class="stat-card stat-primary" 
+                     data-tooltip="Nombre total de scans réseau effectués">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-content">
+                        <h3 id="total-scans">0</h3>
+                        <p>Scans effectués</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card stat-success"
+                     data-tooltip="Nombre total d'appareils découverts sur votre réseau">
+                    <div class="stat-icon">💻</div>
+                    <div class="stat-content">
+                        <h3 id="total-devices">0</h3>
+                        <p>Appareils détectés</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card stat-danger"
+                     data-tooltip="Appareils avec vulnérabilités critiques nécessitant une action immédiate">
+                    <div class="stat-icon">🔴</div>
+                    <div class="stat-content">
+                        <h3 id="total-critical">0</h3>
+                        <p>Hôtes critiques</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card stat-warning"
+                     data-tooltip="Appareils avec risques élevés à surveiller de près">
+                    <div class="stat-icon">🟠</div>
+                    <div class="stat-content">
+                        <h3 id="total-high-risk">0</h3>
+                        <p>Risques élevés</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Graphiques -->
+            <div class="charts-grid">
+                <div class="chart-card" 
+                     data-tooltip="Évolution du nombre d'hôtes actifs et vulnérabilités critiques">
+                    <h2>📈 Évolution des Scans</h2>
+                    <canvas id="scans-chart"></canvas>
+                </div>
+                
+                <div class="chart-card"
+                     data-tooltip="Répartition des systèmes d'exploitation détectés sur votre réseau">
+                    <h2>🖥️ Distribution des OS</h2>
+                    <canvas id="os-chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Liste des Scans -->
+            <div class="scans-section">
+                <div class="section-header">
+                    <h2>📋 Historique des Scans</h2>
+                    <button id="refresh-btn" class="btn btn-primary"
+                            data-tooltip="Recharger les derniers scans depuis la base de données">
+                        🔄 Actualiser
+                    </button>
+                </div>
+                
+                <div id="scans-list" class="scans-list">
+                    <!-- Liste chargée dynamiquement -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Support/Tickets -->
+        <div id="tickets-view" class="dashboard-container" style="display: none;">
+            <div class="tickets-container">
+                <!-- Header Tickets -->
+                <div class="tickets-header">
+                    <div>
+                        <h1>🎫 Support & Tickets</h1>
+                        <p>Créez un ticket pour toute question ou problème</p>
+                    </div>
+                    <button id="create-ticket-btn" class="btn btn-primary"
+                            data-tooltip="Créer un nouveau ticket de support">
+                        ➕ Nouveau Ticket
+                    </button>
+                </div>
+
+                <!-- Filtres Tickets -->
+                <div class="tickets-filters">
+                    <button class="filter-btn active" data-filter="all">
+                        📋 Tous (<span id="count-all">0</span>)
+                    </button>
+                    <button class="filter-btn" data-filter="open">
+                        🟢 Ouverts (<span id="count-open">0</span>)
+                    </button>
+                    <button class="filter-btn" data-filter="in_progress">
+                        🔵 En cours (<span id="count-progress">0</span>)
+                    </button>
+                    <button class="filter-btn" data-filter="resolved">
+                        ✅ Résolus (<span id="count-resolved">0</span>)
+                    </button>
+                    <button class="filter-btn" data-filter="closed">
+                        ⚫ Fermés (<span id="count-closed">0</span>)
+                    </button>
+                </div>
+
+                <!-- Liste des Tickets -->
+                <div id="tickets-list" class="tickets-list">
+                    <!-- Chargé dynamiquement -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Profil Utilisateur -->
+        <div id="profile-view" class="dashboard-container" style="display: none;">
+            <div class="profile-container">
+                <!-- Profile Header -->
+                <div class="profile-header">
+                    <div class="profile-avatar-section">
+                        <div class="profile-avatar">
+                            <span id="profile-avatar-text">?</span>
+                        </div>
+                        <div class="profile-header-info">
+                            <h1 id="profile-name">Chargement...</h1>
+                            <p id="profile-email">email@example.com</p>
+                            <span id="profile-role-badge" class="profile-role">Utilisateur</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Navigation Tabs -->
+                <div class="profile-tabs">
+                    <button class="profile-tab active" data-tab="stats">
+                        📊 Statistiques
+                    </button>
+                    <button class="profile-tab" data-tab="settings">
+                        ⚙️ Paramètres
+                    </button>
+                    <button class="profile-tab" data-tab="security">
+                        🔒 Sécurité
+                    </button>
+                    <button class="profile-tab" data-tab="activity">
+                        📋 Activité
+                    </button>
+                </div>
+
+                <!-- Profile Content -->
+                <div class="profile-content">
+                    <!-- Tab: Statistiques -->
+                    <div id="tab-stats" class="profile-tab-content active">
+                        <h2>Mes Statistiques</h2>
+                        <div class="profile-stats-grid">
+                            <div class="profile-stat-card">
+                                <div class="profile-stat-icon">🌐</div>
+                                <div class="profile-stat-value" id="user-total-scans">0</div>
+                                <div class="profile-stat-label">Scans effectués</div>
+                            </div>
+                            <div class="profile-stat-card">
+                                <div class="profile-stat-icon">💻</div>
+                                <div class="profile-stat-value" id="user-total-devices">0</div>
+                                <div class="profile-stat-label">Appareils détectés</div>
+                            </div>
+                            <div class="profile-stat-card">
+                                <div class="profile-stat-icon">🔴</div>
+                                <div class="profile-stat-value" id="user-total-critical">0</div>
+                                <div class="profile-stat-label">Critiques trouvés</div>
+                            </div>
+                            <div class="profile-stat-card">
+                                <div class="profile-stat-icon">📅</div>
+                                <div class="profile-stat-value" id="user-member-since">2025</div>
+                                <div class="profile-stat-label">Membre depuis</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab: Paramètres -->
+                    <div id="tab-settings" class="profile-tab-content">
+                        <h2>Informations Personnelles</h2>
+                        <form id="update-profile-form" class="profile-form">
+                            <div class="form-group">
+                                <label for="update-username">👤 Nom d'utilisateur</label>
+                                <input type="text" id="update-username" placeholder="Votre nom" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="update-email">📧 Email</label>
+                                <input type="email" id="update-email" placeholder="votre@email.com" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                Mettre à jour
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Tab: Sécurité -->
+                    <div id="tab-security" class="profile-tab-content">
+                        <h2>Changer le Mot de Passe</h2>
+                        <form id="change-password-form" class="profile-form">
+                            <div class="form-group">
+                                <label for="current-password">🔒 Mot de passe actuel</label>
+                                <input type="password" id="current-password" placeholder="••••••••" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="new-password">🔑 Nouveau mot de passe</label>
+                                <input type="password" id="new-password" placeholder="••••••••" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="confirm-password">✅ Confirmer le nouveau mot de passe</label>
+                                <input type="password" id="confirm-password" placeholder="••••••••" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                Changer le mot de passe
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Tab: Activité -->
+                    <div id="tab-activity" class="profile-tab-content">
+                        <h2>Logs d'Activité</h2>
+                        <div id="activity-logs" class="activity-logs">
+                            <!-- Chargé dynamiquement -->
+                            <div class="activity-log-item">
+                                <div class="activity-icon">🔍</div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Scan réseau effectué</div>
+                                    <div class="activity-date">Il y a 2 heures</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Détails d'un Scan (Modal) -->
+    <div id="scan-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🔍 Détails du Scan</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div id="scan-details" class="modal-body">
+                <!-- Détails chargés dynamiquement -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Création Ticket -->
+    <div id="create-ticket-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>➕ Nouveau Ticket de Support</h2>
+                <button class="modal-close-ticket">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="create-ticket-form">
+                    <div class="form-group">
+                        <label for="ticket-subject">📝 Sujet *</label>
+                        <input type="text" id="ticket-subject" 
+                               placeholder="Décrivez brièvement le problème" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ticket-category">🏷️ Catégorie</label>
+                            <select id="ticket-category">
+                                <option value="support">Support</option>
+                                <option value="bug">Bug</option>
+                                <option value="feature">Demande de fonctionnalité</option>
+                                <option value="question">Question</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="ticket-priority">⚡ Priorité</label>
+                            <select id="ticket-priority">
+                                <option value="low">Basse</option>
+                                <option value="medium" selected>Moyenne</option>
+                                <option value="high">Haute</option>
+                                <option value="urgent">Urgente</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ticket-description">📄 Description détaillée *</label>
+                        <textarea id="ticket-description" rows="6" 
+                                  placeholder="Décrivez en détail votre problème ou question..." required></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            🚀 Créer le Ticket
+                        </button>
+                        <button type="button" class="btn btn-secondary modal-close-ticket">
+                            Annuler
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Détails Ticket avec Chat -->
+    <div id="ticket-detail-modal" class="modal modal-large" style="display: none;">
+        <div class="modal-content ticket-modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 id="ticket-detail-subject">Chargement...</h2>
+                    <div class="ticket-meta">
+                        <span id="ticket-detail-id" class="ticket-id-badge">#0</span>
+                        <span id="ticket-detail-status" class="ticket-status-badge">open</span>
+                        <span id="ticket-detail-priority" class="ticket-priority-badge">medium</span>
+                        <span id="ticket-detail-category" class="ticket-category-badge">support</span>
+                    </div>
+                </div>
+                <button class="modal-close-ticket-detail">&times;</button>
+            </div>
+            
+            <div class="ticket-detail-body">
+                <!-- Description Initiale -->
+                <div class="ticket-initial-message">
+                    <div class="ticket-message-header">
+                        <span class="ticket-message-author">👤 Vous</span>
+                        <span id="ticket-detail-date" class="ticket-message-date">...</span>
+                    </div>
+                    <div id="ticket-detail-description" class="ticket-message-content">
+                        Chargement...
+                    </div>
+                </div>
+
+                <!-- Chat Messages -->
+                <div id="ticket-chat-messages" class="ticket-chat-messages">
+                    <!-- Messages chargés dynamiquement -->
+                </div>
+
+                <!-- Chat Input -->
+                <div class="ticket-chat-input">
+                    <form id="ticket-chat-form">
+                        <textarea id="ticket-chat-message" 
+                                  placeholder="Tapez votre message..." 
+                                  rows="3" required></textarea>
+                        <div class="chat-actions">
+                            <button type="submit" class="btn btn-primary">
+                                📤 Envoyer
+                            </button>
+                            <div id="ticket-actions-admin" style="display: none;">
+                                <select id="ticket-status-select" class="status-select">
+                                    <option value="open">🟢 Ouvert</option>
+                                    <option value="in_progress">🔵 En cours</option>
+                                    <option value="waiting_user">⏳ En attente client</option>
+                                    <option value="resolved">✅ Résolu</option>
+                                    <option value="closed">⚫ Fermé</option>
+                                </select>
+                                <button type="button" id="update-status-btn" class="btn btn-secondary">
+                                    Changer Statut
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="notifications.js"></script>
+    <script src="tooltips.js"></script>
+    <script src="tickets.js"></script>
+    <script src="downloads.js"></script>
+    <script src="app.js"></script>
+    <script src="landing.js"></script>
+</body>
+</html>
+
