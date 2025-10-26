@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Permissions réseau pour PathFinder -->
+    <key>http://tizen.org/privilege/internet</key>
+    <true/>
+    <key>http://tizen.org/privilege/network.get</key>
+    <true/>
+    <key>http://tizen.org/privilege/network.set</key>
+    <true/>
+    <key>http://tizen.org/privilege/network.profile</key>
+    <true/>
+    <key>http://tizen.org/privilege/network.telephony</key>
+    <true/>
+    <key>http://tizen.org/privilege/network.wifi</key>
+    <true/>
+    <key>http://tizen.org/privilege/network.bluetooth</key>
+    <true/>
+    
+    <!-- Permissions pour l'accès aux fichiers -->
+    <key>http://tizen.org/privilege/mediastorage</key>
+    <true/>
+    <key>http://tizen.org/privilege/externalstorage</key>
+    <true/>
+    
+    <!-- Permissions pour l'exécution de scripts -->
+    <key>http://tizen.org/privilege/scripting</key>
+    <true/>
+    <key>http://tizen.org/privilege/scripting.python</key>
+    <true/>
+    
+    <!-- Permissions pour l'accès au système -->
+    <key>http://tizen.org/privilege/system</key>
+    <true/>
+    <key>http://tizen.org/privilege/system.network</key>
+    <true/>
+</dict>
+</plist>

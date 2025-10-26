@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Permissions réseau pour PathFinder -->
+    <key>com.microsoft.windows.networking</key>
+    <true/>
+    <key>com.microsoft.windows.networking.client</key>
+    <true/>
+    <key>com.microsoft.windows.networking.server</key>
+    <true/>
+    
+    <!-- Permissions pour l'accès aux fichiers -->
+    <key>com.microsoft.windows.filesystem</key>
+    <true/>
+    <key>com.microsoft.windows.filesystem.user-selected</key>
+    <true/>
+    
+    <!-- Permissions pour l'exécution de scripts -->
+    <key>com.microsoft.windows.scripting</key>
+    <true/>
+    <key>com.microsoft.windows.scripting.python</key>
+    <true/>
+    
+    <!-- Permissions pour l'accès au système -->
+    <key>com.microsoft.windows.system</key>
+    <true/>
+    <key>com.microsoft.windows.system.network</key>
+    <true/>
+</dict>
+</plist>

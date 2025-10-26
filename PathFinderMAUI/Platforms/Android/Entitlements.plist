@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Permissions réseau pour PathFinder -->
+    <key>com.android.permission.INTERNET</key>
+    <true/>
+    <key>com.android.permission.ACCESS_NETWORK_STATE</key>
+    <true/>
+    <key>com.android.permission.ACCESS_WIFI_STATE</key>
+    <true/>
+    <key>com.android.permission.CHANGE_WIFI_STATE</key>
+    <true/>
+    <key>com.android.permission.ACCESS_FINE_LOCATION</key>
+    <true/>
+    <key>com.android.permission.ACCESS_COARSE_LOCATION</key>
+    <true/>
+    
+    <!-- Permissions pour l'accès aux fichiers -->
+    <key>com.android.permission.WRITE_EXTERNAL_STORAGE</key>
+    <true/>
+    <key>com.android.permission.READ_EXTERNAL_STORAGE</key>
+    <true/>
+    
+    <!-- Permissions pour l'exécution de scripts -->
+    <key>com.android.permission.WRITE_SECURE_SETTINGS</key>
+    <true/>
+    <key>com.android.permission.SYSTEM_ALERT_WINDOW</key>
+    <true/>
+    
+    <!-- Permissions pour l'accès au système -->
+    <key>com.android.permission.SYSTEM_ALERT_WINDOW</key>
+    <true/>
+    <key>com.android.permission.WRITE_SECURE_SETTINGS</key>
+    <true/>
+</dict>
+</plist>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PathFinder.LoginPage"
+             BackgroundColor="#0A0A0F">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="40" Spacing="30" VerticalOptions="Center">
+            
+            <!-- Logo & Header -->
+            <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+                <Label Text="🎯 PathFinder" 
+                       FontSize="48" 
+                       FontAttributes="Bold"
+                       TextColor="#06B6D4"
+                       HorizontalOptions="Center" />
+                
+                <Label Text="Security Scanner" 
+                       FontSize="18" 
+                       TextColor="#94A3B8" 
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <!-- Login Card -->
+            <Border StrokeThickness="2" 
+                    Stroke="#8B5CF6"
+                    BackgroundColor="#16213E"
+                    Padding="30"
+                    MaximumWidthRequest="450">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="#8B5CF6" Opacity="0.3" Radius="20" Offset="0,5" />
+                </Border.Shadow>
+                
+                <VerticalStackLayout Spacing="20">
+                    <Label Text="Connexion" 
+                           FontSize="24" 
+                           FontAttributes="Bold" 
+                           TextColor="#06B6D4"
+                           HorizontalOptions="Center" 
+                           Margin="0,0,0,10"/>
+                    
+                    <!-- Email -->
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="📧 Email" 
+                               FontSize="14" 
+                               FontAttributes="Bold" 
+                               TextColor="#06B6D4" />
+                        <Border BackgroundColor="#0A0A0F" 
+                                StrokeThickness="2"
+                                Stroke="#8B5CF6"
+                                Padding="3">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10"/>
+                            </Border.StrokeShape>
+                            <Entry x:Name="EmailEntry"
+                                   Text="admin@pathfinder.local"
+                                   Placeholder="votre@email.com"
+                                   PlaceholderColor="#64748B"
+                                   BackgroundColor="#1A1A2E"
+                                   TextColor="#E2E8F0"
+                                   FontSize="16"
+                                   Margin="8"
+                                   Keyboard="Email" />
+                        </Border>
+                    </VerticalStackLayout>
+                    
+                    <!-- Password -->
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="🔒 Mot de passe" 
+                               FontSize="14" 
+                               FontAttributes="Bold" 
+                               TextColor="#06B6D4" />
+                        <Border BackgroundColor="#0A0A0F" 
+                                StrokeThickness="2"
+                                Stroke="#8B5CF6"
+                                Padding="3">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10"/>
+                            </Border.StrokeShape>
+                            <Entry x:Name="PasswordEntry"
+                                   Text="admin123"
+                                   Placeholder="••••••••"
+                                   PlaceholderColor="#64748B"
+                                   BackgroundColor="#1A1A2E"
+                                   TextColor="#E2E8F0"
+                                   FontSize="16"
+                                   IsPassword="True"
+                                   Margin="8" />
+                        </Border>
+                    </VerticalStackLayout>
+                    
+                    <!-- Error Message -->
+                    <Label x:Name="ErrorLabel"
+                           Text=""
+                           TextColor="#EF4444"
+                           FontSize="14"
+                           IsVisible="False"
+                           HorizontalOptions="Center" />
+                    
+                    <!-- Login Button -->
+                    <Button x:Name="LoginButton"
+                            Text="🔓 SE CONNECTER" 
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            TextColor="White"
+                            CornerRadius="12"
+                            HeightRequest="55"
+                            Margin="0,10,0,0"
+                            Clicked="OnLoginClicked">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="#06B6D4" Offset="0.0" />
+                                <GradientStop Color="#8B5CF6" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <Button.Shadow>
+                            <Shadow Brush="#8B5CF6" Opacity="0.5" Radius="10" Offset="0,4" />
+                        </Button.Shadow>
+                    </Button>
+                    
+                    <!-- Register Link -->
+                    <Label Margin="0,15,0,0" HorizontalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Pas de compte ? " 
+                                      TextColor="#94A3B8" 
+                                      FontSize="14" />
+                                <Span Text="S'inscrire sur le web" 
+                                      TextColor="#06B6D4" 
+                                      FontSize="14"
+                                      FontAttributes="Bold"
+                                      TextDecorations="Underline" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnRegisterTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Footer -->
+            <Label Text="🌐 Dashboard web : http://localhost:5000" 
+                   FontSize="12" 
+                   TextColor="#475569" 
+                   HorizontalOptions="Center"
+                   Margin="0,20,0,0" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
+

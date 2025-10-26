@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Permissions réseau pour PathFinder -->
+    <key>com.apple.developer.networking.networkextension</key>
+    <array>
+        <string>app-proxy-provider</string>
+        <string>content-filter-provider</string>
+        <string>packet-tunnel-provider</string>
+        <string>dns-proxy</string>
+    </array>
+    
+    <!-- Permissions pour l'accès au réseau local -->
+    <key>com.apple.developer.networking.wifi-info</key>
+    <true/>
+    
+    <!-- Permissions pour l'exécution de scripts -->
+    <key>com.apple.security.temporary-exception.apple-events</key>
+    <true/>
+    
+    <!-- Permissions pour l'accès aux fichiers -->
+    <key>com.apple.security.files.user-selected.read-write</key>
+    <true/>
+    
+    <!-- Permissions pour l'accès au réseau -->
+    <key>com.apple.security.network.client</key>
+    <true/>
+    <key>com.apple.security.network.server</key>
+    <true/>
+    
+    <!-- Permissions pour l'accès au système -->
+    <key>com.apple.security.temporary-exception.system-preference</key>
+    <true/>
+    <key>com.apple.security.temporary-exception.system-preference.network</key>
+    <true/>
+</dict>
+</plist>

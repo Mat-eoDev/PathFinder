@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Styles spécifiques à PathFinder -->
+    <Style x:Key="PathFinderButton" TargetType="Button">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="15,10" />
+    </Style>
+
+    <Style x:Key="PathFinderCard" TargetType="Frame">
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="HasShadow" Value="True" />
+        <Setter Property="Padding" Value="15" />
+    </Style>
+
+    <Style x:Key="PathFinderHeader" TargetType="Label">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="White" />
+    </Style>
+
+    <Style x:Key="PathFinderSubHeader" TargetType="Label">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="White" />
+    </Style>
+
+    <Style x:Key="PathFinderInfoLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="TextColor" Value="#BDC3C7" />
+    </Style>
+
+    <Style x:Key="PathFinderValueLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="TextColor" Value="White" />
+    </Style>
+
+    <!-- Couleurs spécifiques à PathFinder -->
+    <Color x:Key="PathFinderPrimary">#2C3E50</Color>
+    <Color x:Key="PathFinderSecondary">#34495E</Color>
+    <Color x:Key="PathFinderSuccess">#27AE60</Color>
+    <Color x:Key="PathFinderWarning">#F39C12</Color>
+    <Color x:Key="PathFinderDanger">#E74C3C</Color>
+    <Color x:Key="PathFinderInfo">#3498DB</Color>
+    <Color x:Key="PathFinderPurple">#8E44AD</Color>
+    <Color x:Key="PathFinderOrange">#E67E22</Color>
+    <Color x:Key="PathFinderLightGray">#BDC3C7</Color>
+    <Color x:Key="PathFinderDarkGray">#7F8C8D</Color>
+
+</ResourceDictionary>
