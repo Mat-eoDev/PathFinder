@@ -14,45 +14,54 @@ import datetime
 from functools import wraps
 import json
 import os
+from config import Config
 
 app = Flask(__name__)
-CORS(app)  # Permettre les requêtes cross-origin
+CORS(app, origins=Config.CORS_ORIGINS)  # Permettre les requêtes cross-origin
 
-# Configuration
-app.config['SECRET_KEY'] = 'pathfinder-secret-key-change-in-production'
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_PORT'] = 8889  # Port MAMP par défaut
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'root'  # Mot de passe MAMP par défaut
-app.config['MYSQL_DATABASE'] = 'pathfinder'
-app.config['MYSQL_UNIX_SOCKET'] = '/Applications/MAMP/tmp/mysql/mysql.sock'
+# Configuration depuis config.py (variables d'environnement)
+app.config['SECRET_KEY'] = Config.SECRET_KEY
+app.config['MYSQL_HOST'] = Config.MYSQL_HOST
+app.config['MYSQL_PORT'] = Config.MYSQL_PORT
+app.config['MYSQL_USER'] = Config.MYSQL_USER
+app.config['MYSQL_PASSWORD'] = Config.MYSQL_PASSWORD
+app.config['MYSQL_DATABASE'] = Config.MYSQL_DATABASE
+app.config['MYSQL_UNIX_SOCKET'] = Config.MYSQL_UNIX_SOCKET
 
 # Connexion MySQL
 def get_db_connection():
-    """Crée une connexion à la base de données MySQL (MAMP)."""
+    """Crée une connexion à la base de données MySQL.
+    Supporte MAMP (socket Unix) et OVH/Linux (host:port).
+    """
+    mysql_config = Config.get_mysql_config()
+    
     try:
-        # Essayer d'abord avec le socket MAMP
+        # Si un socket Unix est défini (MAMP), essayer d'abord avec le socket
+        if 'unix_socket' in mysql_config and mysql_config['unix_socket']:
+            try:
+                connection = mysql.connector.connect(
+                    unix_socket=mysql_config['unix_socket'],
+                    user=mysql_config['user'],
+                    password=mysql_config['password'],
+                    database=mysql_config['database']
+                )
+                return connection
+            except Error as e:
+                print(f"Tentative socket Unix échouée: {e}, passage à host:port...")
+        
+        # Sinon, utiliser host:port (OVH/Linux standard)
         connection = mysql.connector.connect(
-            unix_socket=app.config['MYSQL_UNIX_SOCKET'],
-            user=app.config['MYSQL_USER'],
-            password=app.config['MYSQL_PASSWORD'],
-            database=app.config['MYSQL_DATABASE']
+            host=mysql_config['host'],
+            port=mysql_config['port'],
+            user=mysql_config['user'],
+            password=mysql_config['password'],
+            database=mysql_config['database']
         )
         return connection
     except Error as e:
-        # Si le socket échoue, essayer avec host:port
-        try:
-            connection = mysql.connector.connect(
-                host=app.config['MYSQL_HOST'],
-                port=app.config['MYSQL_PORT'],
-                user=app.config['MYSQL_USER'],
-                password=app.config['MYSQL_PASSWORD'],
-                database=app.config['MYSQL_DATABASE']
-            )
-            return connection
-        except Error as e2:
-            print(f"Erreur de connexion MySQL: {e2}")
-            return None
+        print(f"Erreur de connexion MySQL: {e}")
+        print(f"Configuration utilisée: host={mysql_config['host']}, port={mysql_config['port']}, user={mysql_config['user']}, database={mysql_config['database']}")
+        return None
 
 # Décorateur d'authentification
 def token_required(f):
@@ -1114,8 +1123,11 @@ def serve_static(path):
         return f"Erreur: {e}<br>Path: {frontend_path}/{path}", 404
 
 if __name__ == '__main__':
-    print("🚀 PathFinder API démarrée sur http://localhost:5001")
-    print("📊 Dashboard disponible sur http://localhost:5001")
-    print("⚠️  Note: Port 5001 utilisé (5000 est pris par AirPlay sur macOS)")
-    app.run(debug=True, host='0.0.0.0', port=5001)
+    port = Config.FLASK_PORT
+    debug = Config.DEBUG
+    print(f"🚀 PathFinder API démarrée sur http://localhost:{port}")
+    print(f"📊 Dashboard disponible sur http://localhost:{port}")
+    if debug:
+        print("⚠️  Mode DEBUG activé (désactivez en production)")
+    app.run(debug=debug, host='0.0.0.0', port=port)
 
